@@ -1,0 +1,1731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QuickLease Brand Index</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* ===== arc-tokens.css ===== */
+/* Arc-style design tokens for plain HTML pages and artifacts.
+   Values adapted from Arc (github.com/kuratlielia/arc-library, MIT, by Elia Kuratli), registry/foundation.css.
+   Paste this block at the top of the page's <style>. Components read these names only, never raw colors.
+   Theme: light on bare :root; dark under prefers-color-scheme (unless data-theme="light") and again under data-theme="dark". */
+:root {
+  color-scheme: light;
+  /* Pure grayscale ramp. No hue in the neutrals: color is saved for meaning. */
+  --neutral-0: oklch(100% 0 0); --neutral-1: oklch(99% 0 0); --neutral-2: oklch(97.8% 0 0); --neutral-3: oklch(95.8% 0 0);
+  --neutral-4: oklch(91.5% 0 0); --neutral-5: oklch(84% 0 0); --neutral-6: oklch(72% 0 0); --neutral-7: oklch(59% 0 0);
+  --neutral-8: oklch(46% 0 0); --neutral-9: oklch(34% 0 0); --neutral-10: oklch(23% 0 0); --neutral-11: oklch(15% 0 0);
+
+  --background: var(--neutral-0);        /* page; use --canvas behind a grid of cards */
+  --canvas: oklch(97.6% 0 0);            /* app shell behind white cards */
+  --surface: var(--neutral-0);           /* cards, inputs */
+  --surface-raised: var(--neutral-0);    /* menus, tooltips, dialogs */
+  --surface-muted: var(--neutral-2);     /* tracks, hover fills, quiet panels */
+  --foreground: var(--neutral-11);
+  --text-secondary: var(--neutral-8);
+  --text-muted: var(--neutral-7);
+  --border: oklch(93.5% 0 0);
+  --border-subtle: oklch(96.5% 0 0);
+  --border-strong: oklch(82% 0 0);
+
+  /* Accent is near-black by default. Primary buttons are ink, not a brand color. */
+  --accent: oklch(33% 0 0);
+  --accent-strong: oklch(24% 0 0);
+  --accent-subtle: oklch(33% 0 0 / .1);
+  --accent-foreground: var(--background);
+
+  /* Selection controls (switch, checkbox, slider): ink when on, white thumbs in both states. */
+  --control-on: oklch(23% 0 0); --control-glyph: oklch(100% 0 0); --control-track: oklch(89.5% 0 0); --control-track-hover: oklch(86% 0 0);
+  --control-thumb: oklch(100% 0 0); --control-thumb-on: oklch(100% 0 0); --control-fill: var(--control-on);
+  --control-thumb-shadow: 0 0 0 .5px oklch(0% 0 0 / .07), 0 1px 2px oklch(0% 0 0 / .14), 0 2px 6px oklch(0% 0 0 / .06);
+
+  /* Status: always paired with an icon or label. */
+  --success: oklch(49% .19 150);
+  --warning: oklch(58% .18 75);
+  --danger: oklch(54% .21 25);
+
+  /* Chart series. Series 1 carries the story; add more only when needed. */
+  --series-1: #1f7dcf; --series-2: #7128a5; --series-3: #e58f00; --series-4: #009e84;
+  --chart-ink: var(--foreground);        /* single-series lines default to ink */
+  --chart-fill: color-mix(in oklab, var(--chart-ink) 9%, transparent);
+
+  --shadow-resting: 0 1px 2px oklch(0% 0 0 / .035);
+  --shadow-raised: 0 6px 18px oklch(0% 0 0 / .065), 0 1px 3px oklch(0% 0 0 / .035);
+  --shadow-floating: 0 20px 48px oklch(0% 0 0 / .105), 0 3px 10px oklch(0% 0 0 / .045);
+
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+
+  --radius-control: 1.125rem;  /* 18px: buttons, inputs, segmented tracks, tables, alerts */
+  --radius-panel: 1.625rem;    /* 26px: cards, menus */
+  --radius-surface: 2.125rem;  /* 34px: metric cards, dialogs, hero panels */
+  --radius-pill: 9999px;       /* badges, chips, delta pills */
+
+  --control-height-sm: 2.25rem; --control-height-md: 2.75rem; --control-height-lg: 3.125rem;
+
+  /* Geist + Inter are both on Google Fonts:
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"> */
+  --font-display: "Geist", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: .75rem; --text-sm: .875rem; --text-base: 1rem; --text-lg: 1.125rem; --text-xl: 1.375rem;
+  --text-2xl: 1.75rem; --text-3xl: 2.25rem; --text-4xl: 3.25rem; --text-5xl: 4.5rem;
+  --tracking-display: -.03em; --tracking-body: -.01em;
+  --leading-display: 1.1; --leading-body: 1.4;
+
+  --ease-enter: cubic-bezier(.16,1,.3,1);
+  --ease-standard: cubic-bezier(.22,1,.36,1);
+  --ease-exit: cubic-bezier(.7,0,.84,0);
+  --ease-in-out: cubic-bezier(.65,0,.35,1);
+  /* Spring with a gentle settle; pair with --duration-spring on transforms. */
+  --ease-spring: linear(0, 0.0258, 0.09, 0.1763, 0.2732, 0.3724, 0.4683, 0.5573, 0.6376, 0.7082, 0.7689, 0.8202, 0.8628, 0.8976, 0.9256, 0.9476, 0.9648, 0.9778, 0.9875, 0.9945, 0.9994, 1.0026, 1.0047, 1.0058, 1.0062, 1.0062, 1.0059, 1.0055, 1.0049, 1.0043, 1.0036, 1.0031, 1.0025, 1.002, 1.0016, 1.0013, 1);
+  --duration-instant: 120ms; --duration-fast: 160ms; --duration-standard: 240ms; --duration-considered: 480ms; --duration-spring: 580ms;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --background: oklch(19% 0 0); --canvas: oklch(17% 0 0); --surface: oklch(21.5% 0 0); --surface-raised: oklch(24% 0 0); --surface-muted: oklch(26% 0 0);
+  --foreground: oklch(96% 0 0); --text-secondary: oklch(77% 0 0); --text-muted: oklch(64% 0 0);
+  --border: oklch(29% 0 0); --border-subtle: oklch(25% 0 0); --border-strong: oklch(40% 0 0);
+  --accent: oklch(80% 0 0); --accent-strong: oklch(91% 0 0); --accent-subtle: oklch(80% 0 0 / .13);
+  --control-on: oklch(93% 0 0); --control-glyph: oklch(19% 0 0); --control-track: oklch(33% 0 0); --control-track-hover: oklch(37% 0 0); --control-thumb: oklch(97% 0 0); --control-thumb-on: oklch(19% 0 0); --control-fill: oklch(62% 0 0);
+  --control-thumb-shadow: 0 0 0 .5px oklch(0% 0 0 / .3), 0 1px 2px oklch(0% 0 0 / .35), 0 2px 6px oklch(0% 0 0 / .2);
+  --success: oklch(78% .18 150); --warning: oklch(83% .17 80); --danger: oklch(76% .2 25);
+  --series-1: #55adff; --series-2: #9c37be; --series-3: #e66e00; --series-4: #00a861;
+  --shadow-resting: 0 1px 2px oklch(0% 0 0 / .18); --shadow-raised: 0 8px 22px oklch(0% 0 0 / .22); --shadow-floating: 0 22px 55px oklch(0% 0 0 / .34);
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: oklch(19% 0 0); --canvas: oklch(17% 0 0); --surface: oklch(21.5% 0 0); --surface-raised: oklch(24% 0 0); --surface-muted: oklch(26% 0 0);
+  --foreground: oklch(96% 0 0); --text-secondary: oklch(77% 0 0); --text-muted: oklch(64% 0 0);
+  --border: oklch(29% 0 0); --border-subtle: oklch(25% 0 0); --border-strong: oklch(40% 0 0);
+  --accent: oklch(80% 0 0); --accent-strong: oklch(91% 0 0); --accent-subtle: oklch(80% 0 0 / .13);
+  --control-on: oklch(93% 0 0); --control-glyph: oklch(19% 0 0); --control-track: oklch(33% 0 0); --control-track-hover: oklch(37% 0 0); --control-thumb: oklch(97% 0 0); --control-thumb-on: oklch(19% 0 0); --control-fill: oklch(62% 0 0);
+  --control-thumb-shadow: 0 0 0 .5px oklch(0% 0 0 / .3), 0 1px 2px oklch(0% 0 0 / .35), 0 2px 6px oklch(0% 0 0 / .2);
+  --success: oklch(78% .18 150); --warning: oklch(83% .17 80); --danger: oklch(76% .2 25);
+  --series-1: #55adff; --series-2: #9c37be; --series-3: #e66e00; --series-4: #00a861;
+  --shadow-resting: 0 1px 2px oklch(0% 0 0 / .18); --shadow-raised: 0 8px 22px oklch(0% 0 0 / .22); --shadow-floating: 0 22px 55px oklch(0% 0 0 / .34);
+}
+
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+/* Components set display (grid, flex), which beats the browser's own [hidden] rule. Without this, el.hidden = true does nothing. */
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); font-size: var(--text-sm); line-height: var(--leading-body); letter-spacing: var(--tracking-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); line-height: var(--leading-display); text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+/* Keyboard focus only: pointer focus draws nothing. Text fields show focus with their border instead. */
+:focus:not(:focus-visible) { outline: none; }
+:focus-visible { outline: 2px solid color-mix(in oklab, var(--accent-strong) 72%, transparent); outline-offset: 2px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+/* ===== arc-components.css ===== */
+/* Arc-style component recipes for plain HTML. Requires tokens.css. Copy only what the page uses.
+   Patterns adapted from Arc (github.com/kuratlielia/arc-library, MIT). Every rule reads tokens; no raw colors. */
+
+/* ---------- App shell: quiet sidebar, canvas behind white cards ---------- */
+.shell { display: grid; grid-template-columns: 240px minmax(0, 1fr); min-height: 100%; background: var(--canvas); }
+.sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 2px; padding: var(--space-4) var(--space-3); border-right: 1px solid var(--border); background: var(--background); }
+.brand { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2); margin-bottom: var(--space-4); font-size: var(--text-base); font-weight: 600; letter-spacing: var(--tracking-body); }
+.nav-item { position: relative; display: flex; height: 36px; align-items: center; gap: 10px; padding: 0 var(--space-3); border-radius: 12px; color: var(--text-secondary); font-weight: 500; text-decoration: none; transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+.nav-item svg { width: 18px; height: 18px; flex: none; color: var(--text-muted); }
+.nav-item[aria-current="page"] { background: var(--surface-muted); color: var(--foreground); }
+.nav-item[aria-current="page"] svg { color: var(--foreground); }
+@media (hover: hover) and (pointer: fine) { .nav-item:hover { background: var(--surface-muted); color: var(--foreground); } }
+.main { min-width: 0; padding-block: var(--space-8) var(--space-16); padding-left: max(var(--space-6), env(safe-area-inset-left, 0px)); padding-right: max(var(--space-6), env(safe-area-inset-right, 0px)); }
+.page { max-width: 1120px; margin: 0 auto; display: grid; gap: var(--space-6); }
+
+/* ---------- Page header: crumbs, display title, description, meta row ---------- */
+.crumbs { display: flex; gap: 6px; align-items: center; color: var(--text-muted); font-size: var(--text-sm); }
+.page-title { font-size: var(--text-3xl); }
+.page-desc { max-width: 60ch; color: var(--text-secondary); font-size: var(--text-base); }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--text-muted); font-size: var(--text-xs); }
+.meta-row strong { color: var(--text-secondary); font-weight: 500; }
+
+/* ---------- Card ---------- */
+.card { position: relative; min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); padding: var(--space-6); box-shadow: var(--shadow-resting); transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-standard) var(--ease-standard); }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-5); }
+.card-title { font-family: var(--font-body); font-size: var(--text-base); font-weight: 500; letter-spacing: var(--tracking-body); }
+.card-sub { color: var(--text-muted); font-size: var(--text-sm); }
+/* Only clickable cards lift, and only for a real pointer. */
+@media (hover: hover) and (pointer: fine) { .card[data-interactive]:hover { border-color: var(--border-strong); box-shadow: var(--shadow-raised); } }
+
+/* ---------- Buttons: ink primary, outlined secondary, quiet ghost ---------- */
+.btn { display: inline-flex; min-height: var(--control-height-md); align-items: center; justify-content: center; gap: var(--space-2); padding: 0 var(--space-4); border: 1px solid transparent; border-radius: var(--radius-control); font: inherit; font-size: var(--text-sm); font-weight: 500; white-space: nowrap; cursor: pointer; text-decoration: none; transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard), transform var(--duration-instant) var(--ease-standard); }
+.btn:active:not(:disabled) { transform: scale(.97); }
+.btn svg { width: 16px; height: 16px; }
+.btn-primary { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
+.btn-secondary { background: var(--surface); color: var(--foreground); border-color: var(--border); }
+.btn-ghost { background: transparent; color: var(--text-secondary); }
+.btn-sm { min-height: var(--control-height-sm); padding-inline: var(--space-3); }
+.btn:disabled { opacity: .52; cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover:not(:disabled) { opacity: .91; box-shadow: var(--shadow-resting); }
+  .btn-secondary:hover:not(:disabled) { background: var(--surface-muted); }
+  .btn-ghost:hover:not(:disabled) { background: var(--surface-muted); color: var(--foreground); }
+}
+
+/* ---------- Badges and delta pills: tint 10%, border 25%, colored text ---------- */
+.badge { display: inline-flex; min-height: 26px; align-items: center; gap: 5px; padding: 0 10px; border: 1px solid var(--b-border, var(--border)); border-radius: var(--radius-pill); background: var(--b-bg, var(--surface-muted)); color: var(--b-fg, var(--text-secondary)); font-size: var(--text-xs); font-weight: 500; line-height: 1; white-space: nowrap; }
+.badge svg { width: 13px; height: 13px; color: var(--b-icon, currentColor); }
+.badge-success { --b-fg: var(--success); --b-bg: color-mix(in oklab, var(--success) 10%, var(--surface)); --b-border: color-mix(in oklab, var(--success) 25%, var(--border)); }
+.badge-warning { --b-fg: var(--warning); --b-bg: color-mix(in oklab, var(--warning) 11%, var(--surface)); --b-border: color-mix(in oklab, var(--warning) 27%, var(--border)); }
+.badge-danger { --b-fg: var(--danger); --b-bg: color-mix(in oklab, var(--danger) 10%, var(--surface)); --b-border: color-mix(in oklab, var(--danger) 26%, var(--border)); }
+.badge-outline { --b-bg: var(--surface); --b-fg: var(--text-secondary); }
+.delta { display: inline-flex; align-items: center; gap: 3px; padding: 3px 8px; border-radius: var(--radius-pill); font-size: var(--text-sm); font-weight: 500; font-variant-numeric: tabular-nums; }
+.delta[data-trend="up"] { background: color-mix(in oklab, var(--success) 11%, transparent); color: var(--success); }
+.delta[data-trend="down"] { background: color-mix(in oklab, var(--danger) 11%, transparent); color: var(--danger); }
+.delta[data-trend="flat"] { border: 1px solid var(--border); color: var(--text-secondary); }
+
+/* ---------- Metric: label, big number, comparison line ---------- */
+.metric { display: grid; gap: var(--space-2); }
+.metric-label { color: var(--text-secondary); font-size: var(--text-sm); }
+.metric-value { display: inline-flex; align-items: baseline; font-family: var(--font-display); font-size: var(--text-4xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1; font-variant-numeric: tabular-nums; }
+.metric-value .unit { margin-left: .1em; color: var(--text-muted); font-size: .5em; letter-spacing: -.01em; }
+.metric-note { color: var(--text-muted); font-size: var(--text-sm); }
+
+/* ---------- Segmented control: muted track, white chip glides under the labels ----------
+   JS: on select, set track.style.setProperty('--x', btn.offsetLeft+'px') and '--w' to btn.offsetWidth+'px'. */
+.seg { position: relative; display: inline-flex; max-width: 100%; gap: 2px; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-muted); overflow-x: auto; scrollbar-width: none; isolation: isolate; }
+.seg::before { content: ""; position: absolute; z-index: -1; top: 3px; bottom: 3px; left: 0; width: var(--w, 0); transform: translateX(var(--x, 0)); border: 1px solid var(--border); border-radius: calc(var(--radius-control) - 4px); background: var(--surface); box-shadow: var(--shadow-resting); transition: transform var(--duration-spring) var(--ease-spring), width var(--duration-spring) var(--ease-spring); }
+.seg button { flex: none; min-height: var(--control-height-sm); padding: 0 12px; border: 0; border-radius: calc(var(--radius-control) - 4px); background: transparent; color: var(--text-muted); font: inherit; font-size: var(--text-sm); font-weight: 500; cursor: pointer; transition: color var(--duration-fast) var(--ease-standard); }
+.seg button[aria-pressed="true"] { color: var(--foreground); }
+@media (hover: hover) and (pointer: fine) { .seg button:hover { color: var(--foreground); } }
+
+/* ---------- Page tabs: plain labels, 2px accent bar under the active one ---------- */
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+.tab { position: relative; display: inline-flex; height: 44px; align-items: center; gap: 6px; padding: 0 10px; border: 0; background: none; color: var(--text-secondary); font: inherit; font-weight: 500; white-space: nowrap; cursor: pointer; }
+.tab .count { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.tab[aria-selected="true"] { color: var(--foreground); }
+.tab[aria-selected="true"]::after { content: ""; position: absolute; right: 10px; bottom: -1px; left: 10px; height: 2px; border-radius: 2px 2px 0 0; background: var(--accent); }
+
+/* ---------- Table: rounded frame, sentence-case muted headers, airy rows ---------- */
+.table-wrap { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); }
+.table-scroll { overflow-x: auto; }
+.table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: var(--text-sm); }
+.table th { height: 44px; padding: 0 var(--space-4); border-bottom: 1px solid var(--border); color: var(--text-muted); font-weight: 500; text-align: left; white-space: nowrap; }
+.table td { height: 52px; padding: 0 var(--space-4); border-bottom: 1px solid var(--border-subtle); vertical-align: middle; }
+.table tbody tr:last-child td { border-bottom: 0; }
+.table [data-numeric] { text-align: right; font-variant-numeric: tabular-nums; }
+.table tr[data-href] { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .table tr[data-href]:hover td { background: var(--surface-muted); } }
+
+/* ---------- List rows (activity, alerts, results): no cards, faint dividers ---------- */
+.list { margin: 0; padding: 0; list-style: none; }
+.list > li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 52px; padding-block: 10px; border-bottom: 1px solid var(--border-subtle); }
+.list > li:last-child { border-bottom: 0; }
+.list .primary-text { font-weight: 500; }
+.list .secondary-text { color: var(--text-secondary); }
+.list .note { color: var(--text-muted); font-size: var(--text-xs); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---------- Alert: white surface, only the icon carries color ---------- */
+.alert { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); box-shadow: var(--shadow-resting); }
+.alert > svg { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--a-icon, var(--accent)); }
+.alert-title { font-weight: 500; }
+.alert-desc { margin-top: var(--space-1); color: var(--text-secondary); font-size: var(--text-xs); }
+.alert-success { --a-icon: var(--success); } .alert-warning { --a-icon: var(--warning); } .alert-danger { --a-icon: var(--danger); }
+
+/* ---------- Inputs ---------- */
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-size: var(--text-sm); font-weight: 500; }
+.field .hint { color: var(--text-secondary); font-size: var(--text-sm); }
+/* Full width of the field: inputs otherwise keep the browser's ~170px default and overflow narrow columns. */
+.input { width: 100%; min-width: 0; height: var(--control-height-md); padding: 0 var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--foreground); font: inherit; transition: border-color var(--duration-fast) var(--ease-standard); }
+.input:focus { outline: none; border-color: var(--border-strong); }
+textarea.input { height: auto; padding: var(--space-3) var(--space-4); }
+
+/* ---------- Meter: one hue, track is the empty space ---------- */
+.meter { height: 8px; overflow: hidden; border-radius: var(--radius-pill); background: color-mix(in oklab, var(--foreground) 7%, var(--surface)); }
+.meter > i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+
+/* ---------- Tooltip / popover: the one floating layer with a strong shadow ---------- */
+.tooltip { position: fixed; z-index: 50; display: grid; gap: 4px; min-width: 140px; max-width: 240px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-raised); box-shadow: var(--shadow-floating); color: var(--foreground); font-size: var(--text-sm); pointer-events: none; opacity: 0; scale: .96; transition: opacity var(--duration-fast) var(--ease-standard), scale var(--duration-fast) var(--ease-standard); }
+.tooltip[data-open] { opacity: 1; scale: 1; }
+.tooltip .tip-title { color: var(--text-secondary); font-size: var(--text-xs); }
+.tooltip .tip-row { display: flex; align-items: center; gap: 8px; }
+.tooltip .tip-row b { margin-left: auto; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* ---------- Dialog ---------- */
+.overlay { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: var(--space-4); background: oklch(10% 0 0 / .46); backdrop-filter: blur(7px); }
+.dialog { width: min(100%, 34rem); max-height: calc(100dvh - var(--space-8)); overflow: auto; padding: var(--space-6); border: 1px solid var(--border); border-radius: var(--radius-surface); background: var(--surface-raised); box-shadow: var(--shadow-floating); animation: dialog-in var(--duration-standard) var(--ease-enter) both; }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(6px) scale(.98); } }
+
+/* ---------- Empty state ---------- */
+.empty { display: grid; justify-items: center; gap: var(--space-2); padding: var(--space-12) var(--space-5); text-align: center; }
+.empty-icon { display: grid; width: var(--space-12); height: var(--space-12); place-items: center; margin-bottom: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface-muted); color: var(--text-secondary); }
+.empty h3 { font-family: var(--font-body); font-size: var(--text-base); letter-spacing: var(--tracking-body); }
+.empty p { max-width: 18rem; color: var(--text-secondary); text-wrap: balance; }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; z-index: 70; left: 50%; bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-raised); box-shadow: var(--shadow-floating); font-size: var(--text-sm); transform: translateX(-50%); animation: toast-in var(--duration-standard) var(--ease-enter) both; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } }
+
+/* ---------- Entrance: items rise in sequence once; stagger 35ms per item, total under ~0.4s ---------- */
+.rise { animation: rise var(--duration-considered) var(--ease-enter) both; animation-delay: calc(var(--i, 0) * 35ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* ---------- Skeleton: a calm band that breathes ---------- */
+.skeleton { border-radius: 12px; background: color-mix(in oklab, var(--foreground) 6%, transparent); animation: breathe 1.4s var(--ease-in-out) infinite alternate; }
+@keyframes breathe { from { opacity: .5; } to { opacity: 1; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { display: none; } /* swap for a bottom tab bar on phones */
+  .main { padding-left: max(var(--space-4), env(safe-area-inset-left, 0px)); padding-right: max(var(--space-4), env(safe-area-inset-right, 0px)); }
+  .page-title { font-size: var(--text-2xl); }
+  .metric-value { font-size: var(--text-3xl); }
+}
+
+/* ---------- Chip group (filters): pill, check slides in when selected ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chip { display: inline-flex; height: var(--control-height-sm); align-items: center; gap: 6px; padding: 0 14px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface); color: var(--text-secondary); font: inherit; font-size: var(--text-sm); font-weight: 500; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.chip svg { width: 14px; height: 14px; display: none; color: var(--accent-strong); }
+.chip[aria-pressed="true"] { border-color: color-mix(in oklab, var(--accent) 42%, var(--border)); background: color-mix(in oklab, var(--accent) 11%, var(--surface)); color: var(--foreground); }
+.chip[aria-pressed="true"] svg { display: block; }
+.chip:active { scale: .97; }
+@media (hover: hover) and (pointer: fine) { .chip:hover { border-color: var(--border-strong); color: var(--foreground); } }
+
+/* ---------- Switch: use <input type="checkbox" class="switch"> ---------- */
+.switch { appearance: none; position: relative; flex: none; width: 42px; height: 24px; margin: 0; border-radius: var(--radius-pill); background: var(--control-track); cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard); }
+.switch::before { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--control-thumb); box-shadow: var(--control-thumb-shadow); transition: transform var(--duration-spring) var(--ease-spring), background-color var(--duration-standard) var(--ease-standard); }
+.switch:checked { background: var(--control-on); }
+.switch:checked::before { transform: translateX(18px); background: var(--control-thumb-on); }
+
+/* ---------- Slider: <input type="range" class="slider">; JS sets --p (0-100%) on input ---------- */
+.slider { appearance: none; -webkit-appearance: none; width: 100%; height: 22px; margin: 0; background: transparent; cursor: pointer; }
+.slider::-webkit-slider-runnable-track { height: 6px; border-radius: var(--radius-pill); background: linear-gradient(to right, var(--control-fill) var(--p, 50%), var(--control-track) var(--p, 50%)); }
+.slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8px; border: 0; border-radius: 50%; background: var(--control-thumb); box-shadow: var(--control-thumb-shadow); }
+.slider::-moz-range-track { height: 6px; border-radius: var(--radius-pill); background: var(--control-track); }
+.slider::-moz-range-progress { height: 6px; border-radius: var(--radius-pill); background: var(--control-fill); }
+.slider::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: var(--control-thumb); box-shadow: var(--control-thumb-shadow); }
+
+/* ===== app.css ===== */
+/* QuickLease layer on top of the arc-ui tokens and components.
+   Layout: quiet sidebar + sticky search bar over a pale canvas; white cards hold the content. */
+html, body { height: 100%; }
+body { background: var(--canvas); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--canvas); }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; }
+svg { flex: none; }
+
+/* ---------- helpers ---------- */
+.secondary { color: var(--text-secondary); } .muted { color: var(--text-muted); }
+.xs { font-size: var(--text-xs); } .base { font-size: var(--text-base); }
+.num { font-variant-numeric: tabular-nums; } .w5 { font-weight: 500; }
+.row { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+.row.nowrap { flex-wrap: nowrap; }
+.stack { display: grid; gap: var(--space-3); align-content: start; }
+.spacer { flex: 1; }
+.link { color: var(--text-secondary); font-weight: 500; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .link:hover { color: var(--foreground); } }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+.grid-2.lead { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+.grid-2.wide { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); }
+.card.flush { padding: var(--space-2) 0; }
+.card.flush > .card-head { padding: var(--space-4) var(--space-6) 0; margin-bottom: var(--space-2); }
+.card.flush > .list, .card.flush > .pad { padding: 0 var(--space-6); }
+.card.tall { border-radius: var(--radius-surface); }
+.card.col { display: flex; flex-direction: column; }
+.divider { height: 1px; background: var(--border-subtle); }
+
+/* ---------- shell ---------- */
+.sidebar { width: 240px; }
+.brand-mark { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 9px; background: var(--foreground); color: var(--background); font-size: 11px; font-weight: 600; letter-spacing: 0; }
+.brand small { display: block; color: var(--text-muted); font-size: var(--text-xs); font-weight: 400; }
+.nav-item .count { margin-left: auto; min-width: 20px; height: 20px; display: grid; place-items: center; padding: 0 6px; border-radius: var(--radius-pill); background: color-mix(in oklab, var(--danger) 12%, var(--surface)); color: var(--danger); font-size: 11px; font-variant-numeric: tabular-nums; }
+.side-foot { margin-top: auto; display: grid; gap: 4px; padding: var(--space-3); border-top: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-muted); }
+.side-foot b { color: var(--foreground); font-weight: 500; font-size: var(--text-sm); display: flex; align-items: center; gap: 6px; }
+.side-foot b i { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+.main { padding: 0; display: flex; flex-direction: column; }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; gap: var(--space-3); align-items: center; padding-block: 12px; padding-left: max(var(--space-6), env(safe-area-inset-left, 0px)); padding-right: max(var(--space-6), env(safe-area-inset-right, 0px)); background: color-mix(in oklab, var(--canvas) 86%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color var(--duration-fast) var(--ease-standard); }
+.topbar[data-scrolled] { border-bottom-color: var(--border); }
+.view { width: 100%; max-width: 1120px; margin: 0 auto; display: grid; gap: var(--space-6); align-content: start; padding-block: var(--space-6) var(--space-20); padding-left: max(var(--space-6), env(safe-area-inset-left, 0px)); padding-right: max(var(--space-6), env(safe-area-inset-right, 0px)); }
+.icon-btn { display: grid; width: 36px; height: 36px; place-items: center; border: 0; border-radius: 12px; background: none; color: var(--text-secondary); cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.icon-btn svg { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) { .icon-btn:hover { background: var(--surface-muted); color: var(--foreground); } }
+
+/* ---------- search ---------- */
+.search { position: relative; flex: 1; max-width: 520px; }
+.search > svg { position: absolute; left: 13px; top: 50%; width: 16px; height: 16px; margin-top: -8px; color: var(--text-muted); pointer-events: none; }
+.search input { width: 100%; height: var(--control-height-sm); padding: 0 40px 0 38px; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); font-size: var(--text-sm); transition: border-color var(--duration-fast) var(--ease-standard); }
+.search input::placeholder { color: var(--text-muted); }
+.search input:focus { outline: none; border-color: var(--border-strong); }
+.search .kbd { position: absolute; right: 10px; top: 50%; translate: 0 -50%; min-width: 20px; height: 20px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 6px; color: var(--text-muted); font-size: 11px; }
+.search.lg input { height: var(--control-height-lg); padding-left: 44px; padding-right: 120px; font-size: var(--text-base); }
+.search.lg > svg { left: 16px; width: 18px; height: 18px; margin-top: -9px; }
+.search.lg .btn { position: absolute; right: 5px; top: 5px; min-height: 40px; border-radius: calc(var(--radius-control) - 4px); }
+.suggest { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 30; padding: 5px; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface-raised); box-shadow: var(--shadow-floating); animation: pop-in var(--duration-fast) var(--ease-enter) both; }
+.suggest button { display: flex; width: 100%; min-height: 44px; align-items: center; gap: 10px; padding: 0 10px; border: 0; border-radius: calc(var(--radius-panel) - 6px); background: none; text-align: left; cursor: pointer; }
+.suggest button.hi { background: var(--surface-muted); }
+@media (hover: hover) and (pointer: fine) { .suggest button:hover { background: var(--surface-muted); } }
+.suggest .sep { height: 1px; margin: 4px -5px; background: var(--border-subtle); }
+.suggest .new { color: var(--text-secondary); }
+.suggest .new svg { width: 16px; height: 16px; }
+@keyframes pop-in { from { opacity: 0; transform: translateY(-4px) scale(.98); } }
+
+/* ---------- avatars, scores ---------- */
+.av { display: inline-grid; width: 32px; height: 32px; flex: none; place-items: center; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-muted); color: var(--text-secondary); font-size: 11px; font-weight: 600; letter-spacing: 0; }
+.av.sm { width: 24px; height: 24px; border-radius: 8px; font-size: 9.5px; }
+.av.md { width: 40px; height: 40px; border-radius: 12px; font-size: 13px; }
+.av.lg { width: 48px; height: 48px; border-radius: 14px; font-size: 15px; }
+.score { display: inline-flex; align-items: baseline; gap: 1px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.score small { color: var(--text-muted); font-size: .8em; font-weight: 400; }
+.score.capped { color: var(--danger); }
+.score.lg { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: var(--tracking-display); }
+
+/* ---------- page header ---------- */
+.ph { display: grid; gap: var(--space-3); }
+.ph .title-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); }
+.ph .actions { margin-left: auto; display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.ph .page-desc { font-size: var(--text-base); }
+.crumbs button, .crumbs a { border: 0; background: none; padding: 0; color: var(--text-muted); cursor: pointer; text-decoration: none; font-size: var(--text-sm); }
+@media (hover: hover) and (pointer: fine) { .crumbs button:hover, .crumbs a:hover { color: var(--foreground); } }
+.crumbs .here { color: var(--text-secondary); }
+.tabs { margin-top: var(--space-2); }
+
+/* ---------- segmented glide only animates after first placement ---------- */
+.seg:not([data-ready])::before { transition: none; }
+.seg button.on, .seg button[aria-pressed="true"] { color: var(--foreground); }
+
+/* ---------- list rows ---------- */
+.list > li.click { cursor: pointer; margin-inline: calc(var(--space-3) * -1); padding-inline: var(--space-3); border-radius: 14px; border-bottom-color: transparent; position: relative; }
+.list > li.click::after { content: ""; position: absolute; left: var(--space-3); right: var(--space-3); bottom: 0; height: 1px; background: var(--border-subtle); }
+.list > li.click:last-child::after { display: none; }
+@media (hover: hover) and (pointer: fine) { .list > li.click:hover { background: var(--surface-muted); } .list > li.click:hover::after { opacity: 0; } }
+.list .lead-text { min-width: 0; }
+.list .lead-text > * { display: block; }
+.list .end { display: flex; gap: var(--space-3); align-items: center; justify-content: flex-end; }
+.sev { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text-secondary); }
+.sev svg { width: 16px; height: 16px; }
+.sev.danger { color: var(--danger); } .sev.warning { color: var(--warning); } .sev.success { color: var(--success); }
+
+/* ---------- alerts stack (red flags) ---------- */
+.alerts { display: grid; gap: var(--space-2); }
+.alert .badge { margin-left: 6px; vertical-align: 1px; }
+
+/* ---------- pillar rows ---------- */
+.pillar { display: grid; grid-template-columns: minmax(200px, 300px) minmax(0, 1fr) 44px; gap: var(--space-5); align-items: center; min-height: 60px; padding-block: 10px; border-bottom: 1px solid var(--border-subtle); }
+.pillar:last-child { border-bottom: 0; }
+.pillar .name { display: flex; gap: 8px; align-items: baseline; font-weight: 500; }
+.pillar .name small { color: var(--text-muted); font-size: var(--text-xs); font-weight: 400; font-variant-numeric: tabular-nums; }
+.pillar .why { color: var(--text-secondary); font-size: var(--text-xs); margin-top: 2px; }
+.pillar .val { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
+.pillar .val.na { color: var(--text-muted); font-weight: 400; }
+.meter.na { background: repeating-linear-gradient(135deg, var(--border) 0 4px, transparent 4px 8px); }
+.meter.peer { position: relative; overflow: visible; }
+.meter .mark { position: absolute; top: -3px; bottom: -3px; width: 2px; border-radius: 1px; background: var(--text-muted); }
+
+/* ---------- key/value grid ---------- */
+.kv { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-5) var(--space-6); }
+.kv > div { display: grid; gap: 4px; min-width: 0; }
+.kv span { color: var(--text-secondary); font-size: var(--text-sm); }
+.kv b { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 500; letter-spacing: var(--tracking-display); font-variant-numeric: tabular-nums; }
+.kv b.sm { font-family: var(--font-body); font-size: var(--text-base); letter-spacing: var(--tracking-body); }
+
+/* ---------- charts ---------- */
+.chart-host { position: relative; width: 100%; min-width: 0; }
+.chart-host svg { display: block; overflow: visible; }
+.chart-host svg text { font-family: var(--font-body); font-size: 12px; fill: var(--text-muted); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-bottom: var(--space-3); color: var(--text-secondary); font-size: var(--text-sm); }
+.chart-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.chart-legend i { display: inline-block; width: 14px; height: 2.5px; border-radius: 2px; background: var(--c); }
+.chart-legend i.dash { background: repeating-linear-gradient(to right, var(--c) 0 4px, transparent 4px 7px); }
+.chart-legend i.dot { width: 8px; height: 8px; border-radius: 50%; }
+.chart-legend i.sq { width: 10px; height: 10px; border-radius: 3px; }
+.chart-host .scrub { cursor: crosshair; }
+.tip { position: fixed; z-index: 80; display: grid; gap: 4px; min-width: 140px; max-width: 260px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-raised); box-shadow: var(--shadow-floating); color: var(--foreground); font-size: var(--text-sm); line-height: var(--leading-body); pointer-events: none; }
+.tip .tt { color: var(--text-secondary); font-size: var(--text-xs); }
+.tip .tr { display: flex; align-items: center; gap: 8px; }
+.tip .tr i { width: 10px; height: 2.5px; border-radius: 2px; background: var(--c); flex: none; }
+.tip .tr span { color: var(--text-secondary); }
+.tip .tr b { margin-left: auto; padding-left: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.tip p { color: var(--text-secondary); font-size: var(--text-xs); }
+
+/* ---------- research flow ---------- */
+.options { display: grid; gap: var(--space-2); }
+.option { display: flex; width: 100%; align-items: center; gap: var(--space-4); padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); text-align: left; cursor: pointer; transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-standard) var(--ease-standard); }
+.option .chev { width: 16px; height: 16px; color: var(--text-muted); margin-left: auto; }
+.option.dashed { border-style: dashed; background: transparent; }
+@media (hover: hover) and (pointer: fine) { .option:hover { border-color: var(--border-strong); box-shadow: var(--shadow-resting); } }
+.steps { margin: 0; padding: 0; list-style: none; }
+.steps li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: var(--space-4); padding-block: 14px; border-bottom: 1px solid var(--border-subtle); transition: opacity var(--duration-standard) var(--ease-standard); }
+.steps li:last-child { border-bottom: 0; }
+.steps li.wait { opacity: .45; }
+.steps .st { display: grid; width: 20px; height: 20px; margin-top: 1px; place-items: center; border: 1.5px solid var(--border-strong); border-radius: 50%; color: var(--background); }
+.steps li.run .st { border-color: var(--foreground); border-right-color: transparent; animation: spin .7s linear infinite; }
+.steps li.done .st { border-color: var(--foreground); background: var(--foreground); }
+.steps .st svg { width: 11px; height: 11px; }
+.steps .facts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.steps .facts .badge { animation: rise var(--duration-considered) var(--ease-enter) both; }
+.badge.drop { text-decoration: line-through; color: var(--text-muted); border-style: dashed; background: transparent; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- compare ---------- */
+.cmp-row { display: grid; grid-template-columns: 180px repeat(var(--n), minmax(0, 1fr)); gap: var(--space-5); align-items: center; min-height: 52px; padding-block: 10px; border-bottom: 1px solid var(--border-subtle); }
+.cmp-row:last-child { border-bottom: 0; }
+.cmp-row .lab { color: var(--text-secondary); }
+.cmp-cell { display: grid; gap: 8px; min-width: 0; }
+.cmp-cell .v { display: flex; align-items: center; gap: 6px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.cmp-cell .v svg { width: 14px; height: 14px; color: var(--success); }
+.cmp-cell.big .v { font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: var(--tracking-display); }
+.cmp-head { display: grid; gap: 10px; align-content: start; }
+.select { height: var(--control-height-sm); min-width: 0; padding: 0 12px; border: 1px solid var(--border); border-radius: calc(var(--radius-control) - 4px); background: var(--surface); font-weight: 500; }
+.key { width: 10px; height: 10px; border-radius: 3px; flex: none; background: var(--c); }
+.verdict { padding: var(--space-4) var(--space-5); border-radius: var(--radius-control); background: var(--surface-muted); color: var(--text-secondary); }
+.verdict b { color: var(--foreground); font-weight: 500; }
+
+/* ---------- forms ---------- */
+.field select.input { padding-right: 32px; }
+.switch-row { display: flex; gap: var(--space-4); align-items: flex-start; justify-content: space-between; padding-block: 14px; border-bottom: 1px solid var(--border-subtle); }
+.switch-row:last-child { border-bottom: 0; }
+.switch-row .switch { margin-top: 2px; }
+.slider-row { display: grid; gap: 6px; padding-block: 10px; }
+.slider-row .head { display: flex; justify-content: space-between; gap: var(--space-3); }
+.slider-row .head b { font-weight: 500; }
+.slider-row .head span { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+textarea.input { min-height: 140px; resize: vertical; line-height: 1.6; }
+
+/* ---------- misc ---------- */
+.callout { padding: var(--space-4) var(--space-5); border-radius: var(--radius-control); background: var(--surface-muted); color: var(--text-secondary); }
+.callout b { color: var(--foreground); font-weight: 500; }
+.step-card { display: grid; gap: var(--space-2); align-content: start; }
+.step-card .n { color: var(--text-muted); font-size: var(--text-xs); font-variant-numeric: tabular-nums; }
+.step-card h3 { font-family: var(--font-body); font-size: var(--text-base); letter-spacing: var(--tracking-body); }
+.dot-sep { color: var(--border-strong); }
+.move { font-weight: 500; font-variant-numeric: tabular-nums; font-size: var(--text-xs); }
+.move.up { color: var(--success); } .move.down { color: var(--danger); } .move.flat { color: var(--text-muted); }
+.up { color: var(--success); } .down { color: var(--danger); }
+.fit { display: grid; gap: 6px; justify-items: end; min-width: 88px; }
+.fit b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.fit .meter { width: 88px; height: 6px; }
+.reasons { display: flex; flex-wrap: wrap; gap: 6px; }
+.memo-table td { height: 44px; }
+
+/* ---------- bottom nav (phones) ---------- */
+.bottom-nav { display: none; }
+@media (max-width: 1100px) {
+  .grid-2.lead, .grid-2.wide { grid-template-columns: minmax(0, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; justify-content: space-around; padding: 6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)); border-top: 1px solid var(--border); background: color-mix(in oklab, var(--background) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .bottom-nav a { display: grid; justify-items: center; gap: 2px; padding: 4px 6px; border-radius: 10px; color: var(--text-muted); font-size: 10.5px; font-weight: 500; text-decoration: none; }
+  .bottom-nav a[aria-current="page"] { color: var(--foreground); }
+  .bottom-nav svg { width: 20px; height: 20px; }
+  .view { padding-bottom: 104px; }
+  .grid-2, .grid-3 { grid-template-columns: minmax(0, 1fr); }
+  .topbar .badge { display: none; }
+  .cmp-row { grid-template-columns: 120px repeat(var(--n), minmax(0, 1fr)); gap: var(--space-3); }
+}
+@media (max-width: 560px) {
+  .topbar, .view { padding-left: max(var(--space-4), env(safe-area-inset-left, 0px)); padding-right: max(var(--space-4), env(safe-area-inset-right, 0px)); }
+  .grid-4 { gap: var(--space-3); }
+  .grid-4 .card { padding: var(--space-4); }
+  .card { padding: var(--space-5); }
+  .card.flush > .card-head, .card.flush > .list, .card.flush > .pad { padding-inline: var(--space-5); }
+  .pillar { grid-template-columns: minmax(0, 1fr) 40px; gap: var(--space-2) var(--space-3); }
+  .pillar .meter { grid-column: 1 / -1; grid-row: 2; }
+  .cmp-row { grid-template-columns: minmax(0, 1fr); }
+  .search .kbd { display: none; }
+  .search.lg input { padding-right: 16px; }
+  .search.lg .btn { display: none; }
+  .ph .actions { margin-left: 0; width: 100%; }
+  .list > li { grid-template-columns: auto minmax(0, 1fr); }
+  .list > li > .end, .list > li > .note { grid-column: 2; justify-content: flex-start; }
+  .metric-value { font-size: var(--text-3xl); }
+}
+@media print { .sidebar, .topbar, .bottom-nav { display: none !important; } body.memo-open .shell { display: none !important; } .overlay { position: static; background: none; backdrop-filter: none; } .dialog { max-height: none; box-shadow: none; border: 0; } .no-print { display: none !important; } }
+.list > li.top { align-items: start; }
+.list > li.top > .note { padding-top: 2px; }
+/* segmented tracks scroll inside narrow headers instead of widening the page */
+.card-head { flex-wrap: wrap; }
+.seg { min-width: 0; }
+.card-head > .seg, .ph .actions > .seg { max-width: 100%; }
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand"><span class="brand-mark">QL</span><span>QuickLease<small>Brand Index</small></span></div>
+    <nav id="rail-nav" style="display:grid;gap:2px"></nav>
+    <div class="side-foot">
+      <span>Your mall</span>
+      <b><i></i><span id="mall-name"></span></b>
+      <span>Prototype · all data is made up</span>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar" id="topbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="top-q" placeholder="Search or research any brand" autocomplete="off" aria-label="Search brands">
+        <span class="kbd">/</span>
+        <div class="suggest" id="top-sug" hidden></div>
+      </div>
+      <span class="badge" style="margin-left:auto">Prototype · made-up data</span>
+      <button class="icon-btn" id="theme-btn" title="Switch light or dark" aria-label="Switch light or dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </header>
+    <main id="view" class="view"></main>
+  </div>
+</div>
+<nav class="bottom-nav" id="bottom-nav" aria-label="Main navigation"></nav>
+<div id="tip" class="tip" hidden></div>
+<script>
+// ===== data.js =====
+// ---------- Mock data (illustrative only) ----------
+const CATS = {
+  fashion:{label:'Fashion', peers:212}, footwear:{label:'Footwear', peers:64}, cafe:{label:'Cafés', peers:41},
+  qsr:{label:'Quick service (QSR)', peers:96}, casual:{label:'Casual dining', peers:133}, dessert:{label:'Desserts & bakery', peers:58},
+  beauty:{label:'Beauty', peers:47}, convenience:{label:'Convenience', peers:18}
+};
+const FNB = new Set(['cafe','qsr','casual','dessert']);
+const NOW_YEAR = 2026;
+
+// p = pillar scores 0-10: fin (financial), mom (momentum), cus (customer love), mall (mall track record), buzz. null = no data.
+// d3 = score change over the last 3 months. flags: sev = watch | serious | critical | good
+const BRANDS_RAW = [
+ {id:'kestrel',name:'Kestrel',cat:'footwear',sub:'Sneakers',parent:'Kestrel Lifestyle Pvt Ltd',founded:2023,hq:'Mumbai',own:'Founder-led · VC-funded',stores:6,cities:4,malls:5,tenure:1.2,exits:0,open12:5,close12:0,rating:4.6,reviews:3100,rev:96,pat:-38,funding:'₹95 Cr · Series A',lastRaise:14,unit:[600,1200],rent:'₹160–220',
+  p:{fin:5.2,mom:9.1,cus:8.6,mall:6.4,buzz:8.8},d3:0.6,
+  flags:[{sev:'watch',t:'Loss-making in FY25',d:'Net loss of ₹38 Cr on ₹96 Cr revenue (MCA filing, Mar 2026).'},{sev:'watch',t:'Last funding 14 months ago',d:'At the current burn rate, cash lasts roughly 11 more months unless it raises again.'}],
+  summary:'Expanding fast with strong customer ratings, but still burning cash.'},
+ {id:'pace18',name:'Pace18',cat:'footwear',sub:'Athleisure',parent:'Apex Sports (licence)',founded:2017,hq:'Bengaluru',own:'Celebrity brand · licensed',stores:14,cities:8,malls:11,tenure:2.6,exits:2,open12:4,close12:3,rating:4.1,reviews:5400,rev:140,pat:-22,funding:'Parent-funded',lastRaise:null,unit:[1000,1800],rent:'₹180–240',
+  p:{fin:5.8,mom:5.6,cus:7.0,mall:6.1,buzz:9.2},d3:-0.2,
+  flags:[{sev:'watch',t:'Buzz is far ahead of store performance',d:'Top 3% for social reach in its category, bottom half for store growth.'},{sev:'watch',t:'3 store closures in 12 months',d:'Net store count grew by just 1 in the last year.'}],
+  summary:'Huge name recognition, but store numbers are flat and buzz is doing most of the work.'},
+ {id:'threadline',name:'Threadline',cat:'fashion',sub:'Value fashion',parent:'Threadline Retail (family-owned)',founded:2016,hq:'Coimbatore',own:'Owner-driven',stores:58,cities:22,malls:19,tenure:4.8,exits:1,open12:11,close12:1,rating:4.3,reviews:21000,rev:410,pat:24,funding:'Bootstrapped',lastRaise:null,unit:[4000,8000],rent:'₹90–140',
+  p:{fin:7.6,mom:8.2,cus:8.0,mall:7.4,buzz:4.1},d3:0.3,flags:[],
+  summary:'Profitable, owner-run and opening steadily, with little marketing noise. A classic overlooked tenant.'},
+ {id:'modaly',name:'Modaly',cat:'fashion',sub:'Value fashion',parent:'Avani Fashion & Retail',parentScore:8.2,founded:2022,hq:'Mumbai',own:'Corporate',stores:41,cities:30,malls:9,tenure:1.6,exits:2,open12:14,close12:6,rating:3.8,reviews:6200,rev:180,pat:-45,funding:'Parent-funded',lastRaise:null,unit:[5000,9000],rent:'₹90–130',
+  p:{fin:6.4,mom:6.2,cus:6.1,mall:5.5,buzz:5.0},d3:-0.4,
+  flags:[{sev:'watch',t:'Brand losses sit inside a strong parent',d:'The parent scores 8.2 on financials, but this brand lost an estimated ₹45 Cr in FY25.'}],
+  summary:'Backed by a strong parent, but the brand itself is losing money and closing some stores.'},
+ {id:'vesta',name:'Vesta',cat:'fashion',sub:'Value fashion',parent:'Vesta Retail (Sterling Group)',parentScore:9.1,founded:2016,hq:'Bengaluru',own:'Corporate · listed parent',stores:765,cities:180,malls:142,tenure:5.1,exits:3,open12:220,close12:9,rating:4.2,reviews:310000,rev:9200,pat:820,funding:'Listed parent',lastRaise:null,unit:[6000,10000],rent:'₹80–120',
+  p:{fin:9.2,mom:9.4,cus:7.6,mall:8.7,buzz:7.4},d3:0.1,flags:[],
+  summary:'The benchmark for value fashion: profitable, fast-growing and rarely leaves a mall.'},
+ {id:'boltstreet',name:'Bolt Street',cat:'fashion',sub:'Menswear',parent:'Bolt Street Apparels Pvt Ltd',founded:2019,hq:'Bengaluru',own:'Founder-led · VC-funded',stores:62,cities:30,malls:24,tenure:1.8,exits:1,open12:38,close12:2,rating:4.0,reviews:18000,rev:240,pat:-12,funding:'₹110 Cr · Series B',lastRaise:9,unit:[1500,3000],rent:'₹140–200',
+  p:{fin:6.2,mom:8.8,cus:6.8,mall:6.5,buzz:8.4},d3:0.4,flags:[{sev:'good',t:'Raised ₹110 Cr in Jan 2026',d:'Funding covers its announced plan of 100 stores.'}],
+  summary:'One of the fastest-growing menswear chains, now funded for its next 40 stores.'},
+ {id:'fandomshop',name:'The Fandom Shop',cat:'fashion',sub:'Pop-culture apparel',parent:'Fandom Retail Pvt Ltd',founded:2013,hq:'Mumbai',own:'Founder-led',stores:38,cities:20,malls:30,tenure:3.4,exits:1,open12:12,close12:1,rating:4.4,reviews:26000,rev:360,pat:6,funding:'₹60 Cr · Series B',lastRaise:30,unit:[1500,2500],rent:'₹150–210',
+  p:{fin:7.0,mom:7.6,cus:8.2,mall:7.6,buzz:7.8},d3:0.2,flags:[],
+  summary:'Just turned profitable, with a loyal young customer base and a good record in malls.'},
+ {id:'softstep',name:"Softstep",cat:'footwear',sub:'Comfort footwear',parent:"Softstep Pvt Ltd",founded:2018,hq:'Hyderabad',own:'Founder-led · VC-funded',stores:22,cities:12,malls:18,tenure:1.9,exits:3,open12:6,close12:4,rating:4.2,reviews:9800,rev:92,pat:-34,funding:'₹70 Cr · Series B',lastRaise:22,unit:[500,900],rent:'₹160–220',
+  p:{fin:4.6,mom:5.2,cus:7.4,mall:6.0,buzz:6.0},d3:-0.3,
+  flags:[{sev:'watch',t:'Cash burn is high for its size',d:'Lost ₹34 Cr on ₹92 Cr revenue. Last raise was 22 months ago.'},{sev:'watch',t:'Unusual review spike',d:'1,900 new Google reviews in 10 days (normal is about 200). Customer score frozen while we check.'}],
+  summary:'Customers like the product, but the business is burning cash and growth has stalled.'},
+
+ {id:'brewline',name:'Brewline',cat:'cafe',sub:'Coffee chain',parent:'Sterling Brewline (50:50 JV)',parentScore:8.0,founded:2012,hq:'Mumbai',own:'Corporate JV',stores:480,cities:80,malls:160,tenure:6.8,exits:6,open12:58,close12:14,rating:4.2,reviews:240000,rev:1250,pat:-60,funding:'JV-funded',lastRaise:null,unit:[1200,2500],rent:'₹200–320',
+  p:{fin:5.9,mom:6.4,cus:7.6,mall:8.8,buzz:7.2},d3:-0.3,
+  flags:[{sev:'watch',t:'Reported a loss in FY25',d:'India business lost an estimated ₹60 Cr. Speaker claim about Sterling funding is unverified.'},{sev:'watch',t:'Openings slowing for 3 quarters',d:'Opened 58 stores in 12 months, down from 72 the year before.'}],
+  summary:'A proven mall anchor with loyal customers, but India profits are under pressure and growth is slowing.'},
+ {id:'indigobean',name:'Indigo Bean',cat:'cafe',sub:'Specialty coffee',parent:'Indigo Bean Coffee Roasters Pvt Ltd',founded:2013,hq:'New Delhi',own:'Founder-led · VC-funded',stores:140,cities:20,malls:28,tenure:3.0,exits:1,open12:42,close12:3,rating:4.4,reviews:52000,rev:310,pat:-28,funding:'₹250 Cr · Series C',lastRaise:20,unit:[800,1600],rent:'₹180–260',
+  p:{fin:6.4,mom:8.9,cus:8.7,mall:7.0,buzz:6.6},d3:0.4,flags:[],
+  summary:'Opening fast with excellent reviews, and losses are narrowing.'},
+ {id:'fourthpour',name:'Fourth Pour Coffee',cat:'cafe',sub:'Specialty coffee',parent:'Fourth Pour Coffee Pvt Ltd',founded:2016,hq:'Bengaluru',own:'VC-funded',stores:120,cities:12,malls:22,tenure:2.4,exits:4,open12:20,close12:14,rating:4.1,reviews:38000,rev:260,pat:-52,funding:'₹290 Cr · Series C',lastRaise:26,unit:[1000,2000],rent:'₹180–260',
+  p:{fin:4.8,mom:5.4,cus:7.2,mall:6.6,buzz:6.0},d3:-0.5,
+  flags:[{sev:'watch',t:'Closed 14 stores in 12 months',d:'Closures are concentrated in high-street sites, but 4 were in malls.'}],
+  summary:'Good coffee and a known name, but heavy losses and a wave of closures.'},
+ {id:'kettlewala',name:'Kettlewala',cat:'cafe',sub:'Chai café',parent:'Kettle Brew Pvt Ltd',founded:2012,hq:'Gurugram',own:'Founder-led · VC-funded',stores:230,cities:14,malls:46,tenure:3.9,exits:2,open12:35,close12:8,rating:4.2,reviews:61000,rev:300,pat:-15,funding:'₹160 Cr · Series C',lastRaise:24,unit:[600,1200],rent:'₹180–240',
+  p:{fin:6.6,mom:7.8,cus:7.8,mall:7.4,buzz:5.6},d3:0.1,flags:[],
+  summary:'Steady growth, solid reviews, and close to breaking even.'},
+ {id:'saffa',name:'Saffa Roasters',cat:'cafe',sub:'Specialty coffee & bakery',parent:'Saffa Roasters Coffee Pvt Ltd',founded:2020,hq:'Mumbai',own:'Founder-led',stores:9,cities:3,malls:2,tenure:1.1,exits:0,open12:4,close12:0,rating:4.7,reviews:9000,rev:null,pat:null,funding:'Undisclosed',lastRaise:null,unit:[1200,2200],rent:'₹220–300',
+  p:{fin:null,mom:8.4,cus:9.2,mall:4.8,buzz:7.0},d3:0.5,
+  flags:[],
+  summary:'Small but exceptionally loved. Very little mall history and no public financials yet.'},
+
+ {id:'pearlbhai',name:'Pearl Bhai',cat:'qsr',sub:'Bubble tea & burgers',parent:'Pearl Bhai Pvt Ltd',founded:2023,hq:'Bengaluru',own:'Founder-led · VC-funded',stores:85,cities:12,malls:26,tenure:1.0,exits:0,open12:58,close12:3,rating:4.3,reviews:26000,rev:95,pat:-30,funding:'₹180 Cr · Series B',lastRaise:8,unit:[250,600],rent:'₹240–320',
+  p:{fin:5.4,mom:9.5,cus:8.0,mall:6.2,buzz:8.0},d3:0.5,flags:[],
+  summary:'The fastest-growing food-court brand this year. Young and loss-making, but well funded.'},
+ {id:'pattyraja',name:'Patty Raja',cat:'qsr',sub:'Burgers',parent:'Patty Foods Pvt Ltd',founded:2014,hq:'Gurugram',own:'Founder-led · franchise',stores:160,cities:60,malls:38,tenure:2.2,exits:5,open12:30,close12:18,rating:3.9,reviews:44000,rev:150,pat:-9,funding:'₹45 Cr · Series A',lastRaise:34,unit:[400,900],rent:'₹220–300',
+  p:{fin:5.8,mom:5.9,cus:6.4,mall:6.8,buzz:6.2},d3:-0.3,
+  flags:[{sev:'watch',t:'High franchise churn',d:'18 outlets closed in 12 months, mostly franchise-run.'}],
+  summary:'Popular in food courts, but franchise outlets close often and ratings are slipping.'},
+ {id:'momomania',name:'Momo Mania',cat:'qsr',sub:'Momos & Asian',parent:'Momo Mania Foods Pvt Ltd',founded:2008,hq:'Kolkata',own:'Founder-led · PE-backed',stores:650,cities:31,malls:120,tenure:4.6,exits:4,open12:90,close12:25,rating:4.0,reviews:120000,rev:480,pat:-20,funding:'₹410 Cr · Series D',lastRaise:28,unit:[300,800],rent:'₹240–320',
+  p:{fin:6.8,mom:8.0,cus:7.0,mall:8.0,buzz:6.4},d3:0.2,flags:[],
+  summary:'A reliable food-court tenant with wide reach and improving finances.'},
+ {id:'handihouse',name:'Handi House',cat:'qsr',sub:'Biryani',parent:'Kitchenly Foods',founded:2015,hq:'Gurugram',own:'VC-funded',stores:110,cities:45,malls:12,tenure:2.0,exits:3,open12:10,close12:6,rating:4.1,reviews:30000,rev:260,pat:-40,funding:'₹220 Cr · Series C',lastRaise:30,unit:[300,700],rent:'₹220–300',
+  p:{fin:5.0,mom:5.8,cus:7.4,mall:5.2,buzz:5.0},d3:-0.1,flags:[],
+  summary:'Good food ratings, mostly a delivery business with a thin record in malls.'},
+ {id:'ramdas',name:"Ramdas Sweets",cat:'qsr',sub:'Indian snacks & dining',parent:"Ramdas group",parentScore:9.3,founded:1937,hq:'New Delhi',own:'Family-owned',stores:150,cities:40,malls:60,tenure:8.2,exits:1,open12:12,close12:2,rating:4.1,reviews:400000,rev:12800,pat:1400,funding:'Family-owned',lastRaise:null,unit:[2000,5000],rent:'₹150–220',
+  p:{fin:9.4,mom:7.0,cus:7.6,mall:8.6,buzz:6.8},d3:0.0,flags:[],
+  summary:'Very profitable, trusted by families, and stays in malls for many years.'},
+ {id:'salsashack',name:'Salsa Shack',cat:'qsr',sub:'Tex-Mex',parent:'Crest Hospitality (franchise)',founded:2010,hq:'New Delhi',own:'Master franchise',stores:120,cities:30,malls:70,tenure:4.4,exits:3,open12:15,close12:4,rating:4.0,reviews:85000,rev:420,pat:4,funding:'Franchisee-funded',lastRaise:null,unit:[1500,2500],rent:'₹200–280',
+  p:{fin:6.6,mom:7.0,cus:7.0,mall:7.8,buzz:6.0},d3:0.0,flags:[],
+  summary:'Steady and predictable mall performer run by an experienced franchisee.'},
+
+ {id:'commons',name:'COMMONS',cat:'casual',sub:'Café-bar',parent:'Harbour Hospitality',founded:2014,hq:'Mumbai',own:'Corporate',stores:50,cities:12,malls:14,tenure:4.0,exits:2,open12:4,close12:3,rating:4.2,reviews:150000,rev:520,pat:18,funding:'Private',lastRaise:null,unit:[4000,6000],rent:'₹120–180',
+  p:{fin:7.2,mom:6.4,cus:7.6,mall:7.0,buzz:8.0},d3:-0.1,flags:[],
+  summary:'A strong evening crowd-puller with healthy finances; growth has levelled off.'},
+ {id:'nakli',name:'Nakli Café',cat:'casual',sub:'Modern Indian',parent:'Grand Plate Restaurants Pvt Ltd',founded:2014,hq:'Gurugram',own:'Founder-led',stores:30,cities:12,malls:12,tenure:4.2,exits:1,open12:3,close12:2,rating:4.3,reviews:70000,rev:280,pat:12,funding:'Private',lastRaise:null,unit:[3500,5500],rent:'₹130–180',
+  p:{fin:6.8,mom:6.2,cus:8.0,mall:7.2,buzz:7.6},d3:0.0,flags:[],
+  summary:'Well-reviewed destination dining with a stable record.'},
+ {id:'coolbreeze',name:'Cool Breeze Café',cat:'casual',sub:'Italian café',parent:'Cool Breeze Hospitality (family-owned)',founded:1998,hq:'New Delhi',own:'Owner-driven',stores:9,cities:1,malls:4,tenure:11.0,exits:0,open12:1,close12:0,rating:4.5,reviews:88000,rev:140,pat:22,funding:'Bootstrapped',lastRaise:null,unit:[3000,5000],rent:'₹140–200',
+  p:{fin:8.0,mom:6.0,cus:9.0,mall:9.0,buzz:6.4},d3:0.1,flags:[],
+  summary:'Tiny footprint and a cult following. It stays in a mall for a decade or more.'},
+ {id:'skewerstreet',name:'Skewer Street',cat:'casual',sub:'Buffet dining',parent:'Skewer Street Hospitality Ltd',founded:2006,hq:'Bengaluru',own:'Listed',stores:220,cities:90,malls:80,tenure:5.6,exits:7,open12:12,close12:15,rating:4.1,reviews:210000,rev:1220,pat:-30,funding:'Listed',lastRaise:null,unit:[4000,6500],rent:'₹100–150',
+  p:{fin:6.0,mom:4.8,cus:7.2,mall:7.6,buzz:5.2},d3:-0.4,
+  flags:[{sev:'watch',t:'More closures than openings this year',d:'Closed 15 and opened 12 in the last 12 months.'}],
+  summary:'A familiar name with good reviews, but it is shrinking and lost money last year.'},
+
+ {id:'cocoacove',name:'Cocoa Cove',cat:'dessert',sub:'Bakery & patisserie',parent:'Cocoa Cove Foods (PE-owned)',founded:2004,hq:'Mumbai',own:'PE-owned',stores:200,cities:25,malls:52,tenure:4.9,exits:1,open12:50,close12:3,rating:4.4,reviews:64000,rev:500,pat:30,funding:'₹1,000 Cr · PE buyout',lastRaise:30,unit:[400,1000],rent:'₹220–300',
+  p:{fin:7.8,mom:9.0,cus:8.4,mall:7.8,buzz:6.8},d3:0.3,flags:[],
+  summary:'Profitable, opening quickly and loved by customers. One of the strongest F&B options.'},
+ {id:'ringtheory',name:'Ring Theory Donuts',cat:'dessert',sub:'Donuts',parent:'Summit Foods',founded:2009,hq:'Mumbai',own:'Founder-led',stores:80,cities:18,malls:44,tenure:3.8,exits:9,open12:2,close12:12,rating:3.9,reviews:22000,rev:70,pat:-11,funding:'Private',lastRaise:null,unit:[200,500],rent:'₹250–320',
+  p:{fin:4.4,mom:3.6,cus:6.4,mall:6.0,buzz:4.0},d3:-0.7,
+  flags:[{sev:'serious',t:'Store count falling for 6 quarters',d:'Closed 12 stores and opened 2 in 12 months. Score capped at 5.5.'},{sev:'watch',t:'Exited 9 malls in 3 years',d:'Average stay before exit: 2.9 years.'}],
+  summary:'Still known, but shrinking steadily and leaving malls early.'},
+ {id:'waffleworks',name:'The Waffle Works',cat:'dessert',sub:'Waffles · kiosks',parent:'Waffle Works (franchise)',founded:2013,hq:'Mumbai',own:'Franchise',stores:600,cities:150,malls:140,tenure:3.1,exits:11,open12:110,close12:40,rating:4.1,reviews:45000,rev:180,pat:8,funding:'Private',lastRaise:null,unit:[100,300],rent:'₹280–360',
+  p:{fin:6.4,mom:7.6,cus:7.0,mall:7.0,buzz:6.0},d3:0.1,flags:[],
+  summary:'Cheap to fit out and quick to open. Kiosks churn often, but the brand keeps growing.'},
+
+ {id:'glowbox',name:'Glowbox',cat:'beauty',sub:'Beauty retail',parent:'Glowbox Retail Ltd',parentScore:7.9,founded:2012,hq:'Mumbai',own:'Founder-led · listed',stores:210,cities:80,malls:110,tenure:3.7,exits:2,open12:45,close12:6,rating:4.2,reviews:70000,rev:760,pat:30,funding:'Listed',lastRaise:null,unit:[1500,3000],rent:'₹160–240',
+  p:{fin:7.6,mom:8.4,cus:7.6,mall:8.0,buzz:7.8},d3:0.2,flags:[],
+  summary:'The default beauty anchor: growing, profitable at group level, and well reviewed.'},
+ {id:'honey',name:'HONEY Cosmetics',cat:'beauty',sub:'Cosmetics',parent:'Honeycomb Lifestyle Pvt Ltd',founded:2015,hq:'Mumbai',own:'Founder-led · VC-funded',stores:200,cities:130,malls:60,tenure:2.1,exits:4,open12:40,close12:12,rating:4.1,reviews:20000,rev:500,pat:-68,funding:'₹420 Cr · Series D',lastRaise:24,unit:[300,800],rent:'₹200–280',
+  p:{fin:4.8,mom:7.4,cus:7.4,mall:7.0,buzz:8.6},d3:-0.2,
+  flags:[{sev:'watch',t:'Losses widened in FY25',d:'Net loss grew to ₹68 Cr from ₹54 Cr a year earlier.'}],
+  summary:'Strong buzz and steady openings, but losses are getting bigger.'},
+
+ {id:'cornernine',name:'Corner Nine',cat:'convenience',sub:'Convenience store',parent:'Meridian Retail (master franchise)',parentScore:9.0,founded:2021,hq:'Mumbai',own:'Corporate',stores:44,cities:2,malls:3,tenure:1.4,exits:6,open12:2,close12:28,rating:3.7,reviews:8000,rev:null,pat:null,funding:'Parent-funded',lastRaise:null,unit:[800,1500],rent:'₹150–220',
+  p:{fin:7.4,mom:2.2,cus:5.6,mall:3.0,buzz:4.4},d3:-1.4,
+  flags:[{sev:'serious',t:'Closed 28 stores in 12 months',d:'Peaked near 70 stores. Score capped at 5.5 regardless of parent strength.'},{sev:'watch',t:'Strong parent, weak brand',d:'Parent financials score 9.0, but the brand signals are poor. Shown separately.'}],
+  summary:'A strong parent, but stores are closing far faster than they open.'},
+ {id:'roundclock',name:'RoundClock',cat:'convenience',sub:'Convenience store',parent:'Hartley Consumer',parentScore:7.8,founded:2005,hq:'New Delhi',own:'Corporate',stores:0,cities:0,malls:0,tenure:3.2,exits:22,open12:0,close12:98,rating:3.6,reviews:12000,rev:null,pat:null,funding:'Parent-funded',lastRaise:null,unit:[600,1200],rent:'—',closed:true,
+  p:{fin:3.0,mom:0.8,cus:4.8,mall:2.0,buzz:2.0},d3:-2.1,
+  flags:[{sev:'critical',t:'Chain wound down',d:'98 stores closed within 12 months. Kept in the index as a test case for the scoring model.'}],
+  summary:'Shut down. Kept as a test case so we can check the model would have warned us.'},
+];
+
+// Fictional mall used for the watchlist
+const MY_MALL = {name:'Orbit Mall', city:'Gurugram', gla:'6.2 lakh sq ft', occupancy:92};
+const TENANTS = [
+  {id:'brewline',unit:'G-12',sqft:1800,leaseEnds:'2027-02',since:2019},
+  {id:'vesta',unit:'F-01',sqft:8200,leaseEnds:'2030-06',since:2023},
+  {id:'kettlewala',unit:'F-218',sqft:900,leaseEnds:'2027-09',since:2021},
+  {id:'pattyraja',unit:'FC-07',sqft:600,leaseEnds:'2027-01',since:2022},
+  {id:'momomania',unit:'FC-03',sqft:520,leaseEnds:'2028-03',since:2020},
+  {id:'ringtheory',unit:'G-30',sqft:350,leaseEnds:'2026-12',since:2018},
+  {id:'boltstreet',unit:'F-110',sqft:2200,leaseEnds:'2029-04',since:2025},
+  {id:'pace18',unit:'G-41',sqft:1500,leaseEnds:'2027-05',since:2022},
+  {id:'skewerstreet',unit:'S-02',sqft:5200,leaseEnds:'2028-11',since:2017},
+  {id:'cocoacove',unit:'G-08',sqft:700,leaseEnds:'2029-08',since:2024},
+  {id:'honey',unit:'F-122',sqft:450,leaseEnds:'2027-07',since:2023},
+  {id:'softstep',unit:'F-130',sqft:640,leaseEnds:'2027-03',since:2024},
+];
+const ALERTS = [
+  {sev:'risk',brand:'ringtheory',t:'Ring Theory Donuts closed 4 stores in 30 days',d:'2 of the closures were in NCR malls. Net stores have now fallen for 6 straight quarters. Its lease at G-30 ends in Dec 2026.',when:'2 days ago'},
+  {sev:'warn',brand:'softstep',t:"Unusual review spike for Softstep",d:'1,900 Google reviews in 10 days against a normal 200. Its customer score is frozen until the reviews are checked.',when:'3 days ago'},
+  {sev:'warn',brand:'pattyraja',t:"Patty Raja's rating fell from 4.1 to 3.9",d:'Over the last 90 days, across 44,000 Google reviews. Complaints mention delivery delays and price.',when:'5 days ago'},
+  {sev:'good',brand:'boltstreet',t:'Bolt Street raised ₹110 Cr (Series B)',d:'Plans 100 stores by 2027. Funding covers about 2.5 years at the current burn.',when:'1 week ago'},
+  {sev:'warn',brand:'honey',t:'HONEY Cosmetics filed FY25 accounts',d:'Net loss widened to ₹68 Cr from ₹54 Cr. Financial pillar fell from 5.3 to 4.8.',when:'1 week ago'},
+  {sev:'info',brand:'brewline',t:'Brewline lease ends in 4 months',d:'Score 6.9 and trending down 0.3 over 3 months. Worth reviewing before renewal talks.',when:'Renewal due'},
+  {sev:'info',brand:'cocoacove',t:'Cocoa Cove opened 6 stores this month',d:'2 are in Gurugram, including one at a competing mall 3 km away.',when:'2 weeks ago'},
+  {sev:'risk',brand:'skewerstreet',t:'Skewer Street exited Marketplace One, Pune',d:'It left after 7 years. That is its 3rd mall exit this year.',when:'3 weeks ago'},
+];
+const MALL_POOL = [['Grand Arcade','Noida'],['Citywalk Square','New Delhi'],['Ambient Plaza','Gurugram'],['Palladian Court','Mumbai'],['Marketplace One','Bengaluru'],['Marketplace One','Pune'],['Lagoon Mall','Kochi'],['Elara Mall','Chandigarh'],['Inner Ring Mall','Hyderabad'],['Vista Chennai','Chennai'],['Pacifica Mall','New Delhi'],['Questa Mall','Kolkata'],['Orient Mall','Bengaluru'],['Palisade','Ahmedabad'],['Forum Square','Bengaluru'],['High Street Central','Mumbai'],['Seasons Square','Pune'],['Mall of the South','Bengaluru']];
+const BADGE_COLORS = ['#2a6fb8','#b5532a','#16805f','#7a4fc4','#a8326b','#3e6b1f','#a3720f','#41566e','#b03c3c','#1f6f86'];
+
+// ===== core.js =====
+// ---------- Utilities ----------
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const r1 = n => Math.round(n*10)/10;
+const f1 = n => (n==null ? '—' : r1(n).toFixed(1));
+const clamp = (n,a,b) => Math.max(a, Math.min(b, n));
+const inr = n => n==null ? '—' : (n<0?'−':'') + '₹' + Math.abs(n).toLocaleString('en-IN') + ' Cr';
+const compact = n => n>=100000 ? (n/100000).toFixed(n>=1000000?0:1).replace(/\.0$/,'')+'L' : n>=1000 ? (n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,'')+'k' : String(n);
+function hash(str){let h=2166136261;for(const c of str){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){let t=seed>>>0;return()=>{t+=0x6D2B79F5;let x=t;x=Math.imul(x^x>>>15,x|1);x^=x+Math.imul(x^x>>>7,x|61);return((x^x>>>14)>>>0)/4294967296}}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'')}
+function initials(n){return n.replace(/^the\s+/i,'').split(/[\s!.'-]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+function badge(b, size=32){ const c = size>=44?'lg':size>=38?'md':size<=26?'sm':''; return `<span class="av ${c}" aria-hidden="true">${esc(initials(b.name))}</span>` }
+let toastT; function toast(msg){$('.toast')?.remove();clearTimeout(toastT);const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);toastT=setTimeout(()=>t.remove(),2600)}
+const store = {get(k,d){try{const v=localStorage.getItem('ql_'+k);return v?JSON.parse(v):d}catch{return d}}, set(k,v){try{localStorage.setItem('ql_'+k,JSON.stringify(v))}catch{}}};
+
+// ---------- Icons ----------
+const I = {
+ search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+ home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+ compare:'<path d="M8 3v18M16 3v18M3 8h5M16 16h5M3 16h5M16 8h5"/>',
+ discover:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+ slot:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7M14 17.5h7"/>',
+ bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+ sliders:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
+ book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>', check:'<path d="m5 12 5 5L20 7"/>', x:'<path d="M18 6 6 18M6 6l12 12"/>',
+ warn:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+ stop:'<path d="M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z"/><path d="M12 8v4M12 16h.01"/>',
+ up:'<path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/>', down:'<path d="m3 7 6 6 4-4 8 8"/><path d="M14 17h7v-7"/>',
+ star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
+ eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
+ copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',
+ print:'<path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+ back:'<path d="M19 12H5M12 19l-7-7 7-7"/>', info:'<circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/>',
+ crown:'<path d="m2 7 5 5 5-7 5 7 5-5-2 12H4z"/>', moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+ link:'<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',
+ list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>', shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'
+};
+const ic = (n,cls='') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+
+// ---------- Scoring engine (the fixed formula) ----------
+const PILLARS = [
+ {k:'fin',label:'Financial strength',short:'Financial',desc:'Profit or loss, revenue growth, cash burn and funding runway, from company filings. Parent strength is shown separately.'},
+ {k:'mom',label:'Momentum',short:'Momentum',desc:'Stores opened against stores closed in the last 12 months, plus new cities entered.'},
+ {k:'cus',label:'Customer love',short:'Customers',desc:'Google (and Zomato for F&B) ratings compared with category peers, and the trend in review volume.'},
+ {k:'mall',label:'Mall track record',short:'Mall record',desc:'How many malls it trades in, how long it stays, and how often it leaves early.'},
+ {k:'buzz',label:'Buzz',short:'Buzz',desc:'Indian press and Instagram mentions. Weighted low because buzz is easy to buy.'}
+];
+const PRESETS = {
+ balanced:{label:'Balanced',w:{fin:30,mom:25,cus:25,mall:15,buzz:5},note:'The default model.'},
+ premium:{label:'Premium mall',w:{fin:20,mom:15,cus:35,mall:20,buzz:10},note:'Experience and customer love matter most.'},
+ value:{label:'Value / Tier-2',w:{fin:35,mom:25,cus:20,mall:15,buzz:5},note:'Staying power and finances first.'},
+ fnb:{label:'Food court',w:{fin:20,mom:25,cus:35,mall:15,buzz:5},note:'Ratings and footfall pull for F&B slots.'}
+};
+const state = {
+ weights: store.get('weights', {...PRESETS.balanced.w}), preset: store.get('preset','balanced'),
+ ageAdjust: store.get('ageAdjust', true), caps: store.get('caps', true),
+ watch: new Set(store.get('watch', TENANTS.map(t=>t.id))), compare: store.get('compare', ['kestrel','pace18']),
+ researched: new Set(store.get('researched', [])), custom: store.get('custom', {})
+};
+function saveState(){store.set('weights',state.weights);store.set('preset',state.preset);store.set('ageAdjust',state.ageAdjust);store.set('caps',state.caps);store.set('watch',[...state.watch]);store.set('compare',state.compare);store.set('researched',[...state.researched]);store.set('custom',state.custom)}
+
+const age = b => NOW_YEAR - b.founded;
+const isYoung = b => age(b) < 5;
+const isRising = b => age(b) <= 8;
+function effWeights(b, W=state.weights, ageAdj=state.ageAdjust){
+  const w = {...W}; const adjusted = ageAdj && isYoung(b);
+  if(adjusted){ w.fin*=0.5; w.mom*=1.3; w.cus*=1.2; }
+  const missing = PILLARS.filter(p=>b.p[p.k]==null).map(p=>p.k);
+  missing.forEach(k=>w[k]=0);
+  const sum = Object.values(w).reduce((a,c)=>a+c,0) || 1;
+  PILLARS.forEach(p=>w[p.k]=w[p.k]/sum);
+  return {w, adjusted, missing};
+}
+const CAP = {serious:5.5, critical:3.0};
+function scoreOf(b, W, ageAdj, caps=state.caps){
+  const {w} = effWeights(b, W, ageAdj);
+  const raw = PILLARS.reduce((a,p)=>a+(b.p[p.k]??0)*w[p.k],0);
+  let cap = 10, capBy = null;
+  if(caps) for(const f of b.flags){ if(CAP[f.sev]!=null && CAP[f.sev]<cap){cap=CAP[f.sev];capBy=f} }
+  return {score:r1(Math.min(raw,cap)), raw:r1(raw), capped: raw>cap, capBy};
+}
+const score = b => scoreOf(b).score;
+function band(s){ if(s>=7.5) return {k:'good',label:'Strong'}; if(s>=6.3) return {k:'ok',label:'Solid'}; if(s>=5) return {k:'warn',label:'Watch'}; return {k:'risk',label:'High risk'} }
+function confidence(b){
+  const miss = PILLARS.filter(p=>b.p[p.k]==null).length, n = b.evidence.length;
+  if((miss && b.stores<12) || n<10) return {k:'Low',cls:'warn',why:'Few sources and at least one pillar has no data.'};
+  if(miss || n<16 || b.stores<12) return {k:'Medium',cls:'neutral',why: miss ? `No data for ${miss} pillar${miss>1?'s':''}, so it is left out rather than scored as zero.` : 'Small footprint, so fewer independent sources.'};
+  return {k:'High',cls:'good',why:`${n} sourced facts across all five pillars.`};
+}
+function peerRank(b){ const peers = BRANDS.filter(x=>x.cat===b.cat && !x.closed).sort((a,c)=>score(c)-score(a)); const i = peers.indexOf(b); return {rank:i+1, of:peers.length, total:CATS[b.cat].peers} }
+const fundamentals = b => { const W = {...state.weights, buzz:0}; return scoreOf(b, W).raw };
+
+// ---------- Derived data (deterministic, from each brand's seed) ----------
+const QTRS = ["Q4 '24","Q1 '25","Q2 '25","Q3 '25","Q4 '25","Q1 '26","Q2 '26","Q3 '26"];
+const MONTHS = ['Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
+function split(total,n,R){ const parts = Array.from({length:n},()=>0.4+R()); const s = parts.reduce((a,c)=>a+c,0); const out = parts.map(p=>Math.floor(total*p/s)); let rest = total-out.reduce((a,c)=>a+c,0); for(let i=n-1;rest>0;i--,rest--) out[(i+n)%n]++; return out }
+const NEWS_HOSTS = ['national business daily','business daily','startup news site','financial daily','markets daily','startup funding tracker','marketing trade site'];
+function enrich(b){
+  const R = rng(hash(b.id));
+  // score trend offsets, ending at 0 (current)
+  const off = new Array(12).fill(0); off[8] = -b.d3;
+  off[9] = -b.d3*2/3 + (R()-.5)*.15; off[10] = -b.d3/3 + (R()-.5)*.15;
+  for(let i=7;i>=0;i--) off[i] = off[i+1] - b.d3*0.22 + (R()-.5)*.3;
+  b.trendOff = off;
+  // store openings/closings per quarter
+  const o = split(b.open12,4,R), c = split(b.close12,4,R);
+  const oPrev = split(Math.round(b.open12*(b.d3>0?0.55:1.15)+R()*3),4,R), cPrev = split(Math.round(b.close12*(b.d3>0?1.1:0.55)+R()*2),4,R);
+  b.quarters = QTRS.map((q,i)=>({q, open: i<4?oPrev[i]:o[i-4], close: i<4?cPrev[i]:c[i-4]}));
+  // mall presence
+  const pool = [...MALL_POOL].sort(()=>R()-.5);
+  const nShow = Math.min(b.malls + Math.min(b.exits,3), 8);
+  b.mallList = pool.slice(0,nShow).map(([m,city],i)=>{ const exited = i >= nShow - Math.min(b.exits,3) && b.exits>0; const since = Math.max(b.founded, NOW_YEAR - Math.max(1,Math.round(b.tenure*(0.5+R()*1.2)))); return {m,city,since,status: exited?'Exited':'Trading', left: exited ? Math.min(NOW_YEAR, since+1+Math.floor(R()*3)) : null} });
+  // review volume per month (k)
+  const base = Math.max(40, b.reviews/60);
+  b.reviewVel = Array.from({length:12},(_,i)=>Math.round(base*(0.75+R()*0.5)*(1+(b.d3>0?i*0.03:-i*0.01))));
+  if(b.id==='softstep') b.reviewVel[11] = Math.round(base*6.5);
+  b.igFollowers = Math.round((b.p.buzz**3)*(800+R()*900));
+  b.articles90 = Math.round(b.p.buzz*(2+R()*3));
+  b.evidence = buildEvidence(b, R);
+  return b;
+}
+function monthsAgoLabel(m){ const d = new Date(2026, 9-m, 1); return d.toLocaleString('en-GB',{month:'short',year:'numeric'}) }
+function buildEvidence(b, R){
+  const E = []; const site = slug(b.name)+'.in';
+  const add = (type,pillar,title,host,date,fact)=>E.push({type,pillar,title,host,date,fact});
+  if(b.rev!=null){
+    add('Filing','fin',`${b.parent}: financial statements FY25`,'mca.gov.in','Mar 2026',`Revenue ${inr(b.rev)} · net ${b.pat<0?'loss':'profit'} ${inr(Math.abs(b.pat))}`);
+    add('Filing','fin',`${b.parent}: financial statements FY24`,'mca.gov.in','Apr 2025',`Revenue ${inr(Math.round(b.rev*(0.7+R()*0.2)))}`);
+  }
+  if(b.parentScore) add('Exchange','fin',`${b.parent.split(' (')[0]} quarterly results, Q1 FY27`,'stock exchange filing','Aug 2026',`Parent financial strength ${b.parentScore.toFixed(1)} / 10`);
+  if(b.lastRaise) add('Funding','fin',`${b.name} raises ${b.funding}`,'startup funding tracker',monthsAgoLabel(b.lastRaise),`${b.funding}, ${b.lastRaise} months ago`);
+  add('Store locator','mom',`${b.name} store locator`,`${site}/stores`,'Oct 2026',`${b.stores} stores in ${b.cities} cities`);
+  add('Google Maps','mom',`Google Maps listings for “${b.name}”`,'google.com/maps','Oct 2026',`${b.stores} open · ${b.close12} marked permanently closed in 12 months`);
+  add('Snapshot','mom','QuickLease monthly store-count history','quicklease (internal)','Oct 2026',`+${b.open12} opened / −${b.close12} closed in 12 months`);
+  add('Google reviews','cus',`Google reviews across ${b.stores||'former'} outlets`,'google.com/maps','Oct 2026',`${b.rating.toFixed(1)}★ from ${b.reviews.toLocaleString('en-IN')} reviews`);
+  if(FNB.has(b.cat)) add('Zomato','cus',`${b.name} on Zomato`,'zomato.com','Oct 2026',`Dining ${(b.rating+(R()-.4)*.3).toFixed(1)}★ · ${compact(Math.round(b.reviews*.6))} ratings`);
+  add('Mall directories','mall',`Mall store directories (${b.malls} malls)`,'mall websites','Sep 2026',`In ${b.malls} malls · average stay ${b.tenure.toFixed(1)} yrs · ${b.exits} exits in 3 yrs`);
+  const heads = [`${b.name} plans ${Math.max(5,Math.round(b.open12*1.4))} new stores by FY27`,`${b.name} enters ${['Hyderabad','Pune','Kolkata','Chennai','Jaipur','Lucknow'][Math.floor(R()*6)]}`,`Inside ${b.name}'s retail playbook`,`${b.name} bets on malls over high streets`,`How ${b.name} is handling rising rents`,`${b.name} names new CEO for India retail`];
+  const nNews = Math.max(2, Math.round(b.p.buzz/1.6));
+  for(let i=0;i<nNews;i++) add('News',i%2?'buzz':'mom',heads[i%heads.length],NEWS_HOSTS[Math.floor(R()*NEWS_HOSTS.length)],monthsAgoLabel(1+Math.floor(R()*8)),i%2?'Press mention':'Expansion plan');
+  add('Instagram','buzz',`@${slug(b.name)} on Instagram`,'instagram.com','Oct 2026',`${compact(b.igFollowers)} followers · ${Math.round(b.p.buzz*5)} reels tagged at outlets in 30 days`);
+  b.flags.forEach(f=>{ if(f.sev!=='good') add('Red flag', f.sev==='watch'?'mom':'mom', f.t, f.sev==='critical'?'nclt.gov.in':'quicklease (derived)','Oct 2026', f.d) });
+  return E;
+}
+
+// Unknown names: the "agent" builds a plausible brand on the fly.
+const GEN_CATS = Object.keys(CATS).filter(k=>k!=='convenience');
+const SUBS = {fashion:['Ethnic wear','Streetwear','Kidswear','Value fashion'],footwear:['Sneakers','Sandals','Comfort footwear'],cafe:['Specialty coffee','Chai café','Café & bakery'],qsr:['Rolls & wraps','Pizza','South Indian','Burgers'],casual:['Pan-Asian','North Indian','Café-bar'],dessert:['Gelato','Bakery','Kulfi & desserts'],beauty:['Skincare','Fragrance','Cosmetics']};
+const CITIES = ['Mumbai','Bengaluru','New Delhi','Pune','Hyderabad','Chennai','Kolkata','Ahmedabad','Jaipur','Kochi'];
+function generateBrand(name, variant=0, commit=true){
+  const id = 'x-'+slug(name)+(variant?'-'+variant:'');
+  if(BRAND_BY_ID[id]) return BRAND_BY_ID[id];
+  if(!commit){ const tmp = generateBrand.preview?.[id]; if(tmp) return tmp }
+  const R = rng(hash(id));
+  const cat = GEN_CATS[Math.floor(R()*GEN_CATS.length)], founded = 2010+Math.floor(R()*15);
+  const young = NOW_YEAR-founded<5, stores = young ? 3+Math.floor(R()*25) : 15+Math.floor(R()*180);
+  const pv = (lo,hi)=>r1(lo+R()*(hi-lo));
+  const p = {fin: young && R()<.5 ? null : pv(3.8,8.6), mom:pv(3.5,9.2), cus:pv(5,9), mall:pv(3.5,8.2), buzz:pv(3,8.8)};
+  const open12 = Math.round(stores*(p.mom/25)), close12 = Math.round(stores*((10-p.mom)/40));
+  const rev = p.fin==null ? null : Math.round(stores*(2+R()*4)), pat = rev==null?null:Math.round(rev*((p.fin-6)/18));
+  const flags = [];
+  if(p.mom<4.5) flags.push({sev:'watch',t:`Closed ${close12} stores in 12 months`,d:'Closures are running ahead of openings.'});
+  if(pat!=null && pat<0 && p.fin<5) flags.push({sev:'watch',t:'Loss-making in FY25',d:`Net loss of ${inr(-pat)} on ${inr(rev)} revenue.`});
+  const sub = SUBS[cat][Math.floor(R()*SUBS[cat].length)];
+  const b = {id,name,cat,sub,parent:`${name} ${['Retail','Foods','Lifestyle','Hospitality'][Math.floor(R()*4)]} Pvt Ltd`,founded,hq:CITIES[Math.floor(R()*CITIES.length)],
+    own: R()<.6?'Founder-led':'Corporate', stores, cities:Math.max(1,Math.round(stores/4)), malls:Math.max(1,Math.round(stores*.35)), tenure:r1(young?0.8+R()*1.5:2+R()*4), exits:Math.floor(R()*4),
+    open12, close12, rating:r1(3.6+R()*1.1), reviews:Math.round(stores*(200+R()*900)), rev, pat, funding: young?'₹'+(10+Math.floor(R()*80))+' Cr · Seed/Series A':'Private', lastRaise: young?6+Math.floor(R()*20):null,
+    unit:[400+Math.floor(R()*8)*100, 1500+Math.floor(R()*20)*100], rent:'₹140–240', p, d3:r1((R()-.45)*1.2), flags, generated:true};
+  b.summary = summaryFor(b);
+  enrich(b);
+  if(!commit){ (generateBrand.preview ||= {})[id] = b; return b }
+  BRANDS.push(b); BRAND_BY_ID[id]=b; state.custom[id] = {name, variant}; saveState();
+  return b;
+}
+function summaryFor(b){
+  const best = [...PILLARS].filter(p=>b.p[p.k]!=null).sort((a,c)=>b.p[c.k]-b.p[a.k])[0], worst = [...PILLARS].filter(p=>b.p[p.k]!=null && p.k!=='buzz').sort((a,c)=>b.p[a.k]-b.p[c.k])[0];
+  return `Strongest on ${best.label.toLowerCase()}, weakest on ${worst.label.toLowerCase()}.`;
+}
+
+const BRANDS = BRANDS_RAW.map(enrich);
+const BRAND_BY_ID = Object.fromEntries(BRANDS.map(b=>[b.id,b]));
+Object.entries(state.custom).forEach(([id,c])=>{ if(!BRAND_BY_ID[id]) generateBrand(c.name, c.variant) });
+const brandOf = id => BRAND_BY_ID[id];
+function findBrand(q){ const s = slug(q); return BRANDS.find(b=>slug(b.name)===s || b.id===s) }
+
+function trendOf(b){ const s = score(b); return b.trendOff.map(o=>clamp(r1(s+o),0,10)) }
+
+// ===== charts.js =====
+// ---------- Charts: drawn at the host's real pixel width (labels never scale), redrawn on resize ----------
+const CHARTS = new Map(); let chartSeq = 0;
+const chartRO = new ResizeObserver(es => es.forEach(e => {
+  const el = e.target, fn = CHARTS.get(+el.dataset.cid), w = Math.floor(el.clientWidth);
+  if(fn && w && w !== +el.dataset.w){ el.dataset.w = w; fn(el, w) }
+}));
+function chartHost(draw, h){ const id = ++chartSeq; CHARTS.set(id, draw); return `<div class="chart-host" data-cid="${id}" style="height:${h}px"></div>` }
+function hydrateCharts(root=document){ $$('.chart-host:not([data-h])', root).forEach(el => { el.dataset.h = 1; chartRO.observe(el) }) }
+function resetCharts(){ chartRO.disconnect(); CHARTS.clear() }
+
+// Tooltip: one floating card shared by charts and [data-tip] elements
+function tipHtml(title, rows=[], note=''){
+  return (title?`<div class="tt">${esc(title)}</div>`:'')
+    + rows.map(r=>`<div class="tr">${r.c?`<i style="--c:${r.c}${r.dash?`;background:repeating-linear-gradient(to right,${r.c} 0 3px,transparent 3px 5px)`:''}"></i>`:''}<span>${esc(r.name)}</span><b>${esc(r.val)}</b></div>`).join('')
+    + (note?`<p>${esc(note)}</p>`:'');
+}
+function placeTip(x, y){ const t = $('#tip'), w = t.offsetWidth, h = t.offsetHeight; t.style.left = Math.max(8, Math.min(x + 14, innerWidth - w - 8)) + 'px'; t.style.top = (y + 16 + h > innerHeight ? y - h - 12 : y + 16) + 'px' }
+function showTip(html, x, y){ const t = $('#tip'); t.innerHTML = html; t.hidden = false; placeTip(x, y) }
+function hideTip(){ $('#tip').hidden = true }
+
+function niceTicks(lo,hi,n=4){ const span=hi-lo, step0=span/n, mag=10**Math.floor(Math.log10(step0)), step=[1,2,2.5,5,10].map(m=>m*mag).find(s=>s>=step0); const out=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+1e-9; v+=step) out.push(r1(v)); return out }
+// Monotone cubic curve through [x,y] points (same slopes as d3.curveMonotoneX)
+function smoothPath(pts){
+  const n = pts.length;
+  if(n < 3) return pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
+  const h = [], s = [], t = new Array(n);
+  for(let i=0;i<n-1;i++){ h[i] = pts[i+1][0]-pts[i][0]; s[i] = (pts[i+1][1]-pts[i][1]) / h[i]; }
+  for(let i=1;i<n-1;i++){ const p = (s[i-1]*h[i] + s[i]*h[i-1]) / (h[i-1]+h[i]); t[i] = (Math.sign(s[i-1])+Math.sign(s[i])) * Math.min(Math.abs(s[i-1]), Math.abs(s[i]), .5*Math.abs(p)) || 0; }
+  t[0] = (3*s[0] - t[1]) / 2; t[n-1] = (3*s[n-2] - t[n-2]) / 2;
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for(let i=0;i<n-1;i++){ const k = h[i]/3; d += ` C${pts[i][0]+k} ${pts[i][1]+k*t[i]} ${pts[i+1][0]-k} ${pts[i+1][1]-k*t[i+1]} ${pts[i+1][0]} ${pts[i+1][1]}`; }
+  return d;
+}
+const legendHtml = items => `<div class="chart-legend">${items.map(s=>`<span><i class="${s.kind||''}" style="--c:${s.color}"></i>${esc(s.label)}</span>`).join('')}</div>`;
+
+// series: [{label, color, values, dashed}]; value axis on the right, labels in 12px Inter
+function lineChart(series, {labels, h=220, ymin, ymax, fmt=f1, tick=t=>String(t), markers=[], legend=series.length>1}={}){
+  const leg = legend ? legendHtml(series.map(s=>({label:s.label, color:s.color, kind:s.dashed?'dash':''}))) : '';
+  return leg + chartHost((el, W) => {
+    const gut = 40, axis = 26, pt = 10, pw = W - gut, ph = h - axis - pt;
+    const all = series.flatMap(s=>s.values.filter(v=>v!=null));
+    const lo = ymin ?? Math.floor(Math.min(...all) - .5), hi = ymax ?? Math.ceil(Math.max(...all) + .5);
+    const n = labels.length, X = i => n===1 ? pw/2 : 1 + i*(pw-2)/(n-1), Y = v => pt + ph - (v-lo)/(hi-lo)*ph;
+    let g = niceTicks(lo, hi, 4).filter(t=>t>=lo-1e-9 && t<=hi+1e-9).map(t=>`<line x1="0" x2="${pw}" y1="${Y(t)}" y2="${Y(t)}" style="stroke:var(--${Math.abs(t-lo)<1e-9?'border-strong':'border'})" shape-rendering="crispEdges"/><text x="${pw+10}" y="${Y(t)+4}">${esc(tick(t))}</text>`).join('');
+    const room = Math.max(1, Math.ceil(n / Math.max(2, Math.floor(pw/64))));
+    labels.forEach((l,i)=>{ if(i%room===0) g += `<text x="${X(i)}" y="${h-6}" text-anchor="${i===0?'start':i===n-1?'end':'middle'}">${esc(l)}</text>` });
+    markers.forEach(m=>{ g += `<line x1="${X(m.i)}" x2="${X(m.i)}" y1="${pt}" y2="${pt+ph}" style="stroke:var(--danger)" stroke-dasharray="3 3"/><text x="${X(m.i)+6}" y="${pt+12}" style="fill:var(--danger)">${esc(m.label)}</text>` });
+    const solid = series.filter(s=>!s.dashed);
+    series.forEach(s=>{
+      const pts = s.values.map((v,i)=>v==null?null:[X(i),Y(v)]).filter(Boolean); if(!pts.length) return;
+      const d = smoothPath(pts);
+      if(!s.dashed && solid.length===1) g += `<path d="${d} L${pts.at(-1)[0]} ${pt+ph} L${pts[0][0]} ${pt+ph} Z" style="fill:color-mix(in oklab, ${s.color} 9%, transparent)"/>`;
+      g += `<path d="${d}" fill="none" style="stroke:${s.color}" stroke-width="${s.dashed?1.75:2}"${s.dashed?' stroke-dasharray="4 5"':''} stroke-linecap="round" stroke-linejoin="round"/>`;
+      if(!s.dashed) g += `<circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="3.5" style="fill:${s.color};stroke:var(--surface)" stroke-width="2"/>`;
+    });
+    g += `<g class="hov" style="display:none"><line class="cx" y1="${pt}" y2="${pt+ph}" style="stroke:var(--border-strong)" shape-rendering="crispEdges"/>${series.map((s,k)=>`<circle class="cd" data-k="${k}" r="4" style="fill:${s.color};stroke:var(--surface)" stroke-width="2"/>`).join('')}</g>`;
+    g += `<rect class="scrub" x="0" y="0" width="${pw}" height="${pt+ph}" fill="transparent"/>`;
+    el.innerHTML = `<svg width="${W}" height="${h}" viewBox="0 0 ${W} ${h}" role="img" aria-label="${esc(series.map(s=>s.label).join(', '))}">${g}</svg>`;
+    const svg = el.firstChild, hov = svg.querySelector('.hov'), cx = hov.querySelector('.cx');
+    const move = e => {
+      const r = svg.getBoundingClientRect(), i = clamp(Math.round((e.clientX - r.left - 1) / ((pw-2) / Math.max(n-1,1))), 0, n-1);
+      hov.style.display = ''; cx.setAttribute('x1', X(i)); cx.setAttribute('x2', X(i));
+      hov.querySelectorAll('.cd').forEach(c=>{ const v = series[+c.dataset.k].values[i]; c.style.display = v==null?'none':''; if(v!=null){ c.setAttribute('cx', X(i)); c.setAttribute('cy', Y(v)) } });
+      showTip(tipHtml(labels[i], series.map(s=>({c:s.color, dash:s.dashed, name:s.label, val:s.values[i]==null?'—':fmt(s.values[i])}))), e.clientX, e.clientY);
+    };
+    const rect = svg.querySelector('.scrub');
+    rect.addEventListener('pointermove', move); rect.addEventListener('pointerdown', move);
+    rect.addEventListener('pointerleave', () => { hov.style.display = 'none'; hideTip() });
+  }, h);
+}
+// bar from baseline y0 extending len px in dir (-1 up, 1 down); 4px rounded data-end, square at baseline
+function barPath(x,y0,len,bw,dir,fill){
+  const r = Math.min(4, len, bw/2), y1 = y0 + dir*len;
+  return `<path d="M${x} ${y0} V${y1-dir*r} Q${x} ${y1} ${x+r} ${y1} H${x+bw-r} Q${x+bw} ${y1} ${x+bw} ${y1-dir*r} V${y0} Z" style="fill:${fill}"/>`;
+}
+// Opened (up, green) vs closed (down, red) per quarter, values at the bar ends
+function storeBars(qs, {h=210}={}){
+  return legendHtml([{label:'Opened',color:'var(--success)',kind:'sq'},{label:'Closed',color:'var(--danger)',kind:'sq'}]) + chartHost((el, W) => {
+    const axis = 24, pad = 18, ph = h - axis - pad*2, mid = pad + ph/2;
+    const m = Math.max(1, ...qs.map(q=>Math.max(q.open,q.close)));
+    const slot = W/qs.length, bw = Math.min(24, slot*.45), Y = v => Math.max(2, v/m*(ph/2)), every = slot < 50 ? 2 : 1;
+    let g = `<line x1="0" x2="${W}" y1="${mid}" y2="${mid}" style="stroke:var(--border-strong)" shape-rendering="crispEdges"/>`;
+    qs.forEach((q,i)=>{
+      const cx = slot*(i+.5), x = cx - bw/2;
+      if(q.open){ g += barPath(x, mid-1, Y(q.open), bw, -1, 'var(--success)'); g += `<text x="${cx}" y="${mid-1-Y(q.open)-6}" text-anchor="middle">${q.open}</text>` }
+      if(q.close){ g += barPath(x, mid+1, Y(q.close), bw, 1, 'var(--danger)'); g += `<text x="${cx}" y="${mid+1+Y(q.close)+14}" text-anchor="middle">${q.close}</text>` }
+      if(i%every===0 || i===qs.length-1) g += `<text x="${cx}" y="${h-5}" text-anchor="middle">${esc(q.q)}</text>`;
+      const net = q.open - q.close;
+      g += `<rect x="${slot*i}" y="0" width="${slot}" height="${h-axis}" fill="transparent" data-tip="${esc(tipHtml(q.q, [{c:'var(--success)',name:'Opened',val:String(q.open)},{c:'var(--danger)',name:'Closed',val:String(q.close)},{name:'Net change',val:(net>=0?'+':'')+net}]))}"/>`;
+    });
+    el.innerHTML = `<svg width="${W}" height="${h}" viewBox="0 0 ${W} ${h}" role="img" aria-label="Stores opened and closed per quarter">${g}</svg>`;
+  }, h);
+}
+// Small gray trend line; the end dot marks today
+function sparkline(vals, {w=72, h=24}={}){
+  const lo = Math.min(...vals), hi = Math.max(...vals), X = i => 2 + i*(w-6)/(vals.length-1), Y = v => h - 3 - (hi===lo ? .5 : (v-lo)/(hi-lo))*(h-7);
+  const pts = vals.map((v,i)=>[X(i),Y(v)]), d = smoothPath(pts), e = pts.at(-1);
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><path d="${d} L${e[0]} ${h} L${pts[0][0]} ${h} Z" style="fill:var(--border-strong);opacity:.22"/><path d="${d}" fill="none" style="stroke:var(--text-secondary)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${e[0]}" cy="${e[1]}" r="2.5" style="fill:var(--text-secondary)"/></svg>`;
+}
+
+// ===== views1.js =====
+// ---------- Shell & router ----------
+const NAV = [
+ {r:'home',label:'Home',icon:'home'},{r:'discover',label:'Discover',icon:'discover'},{r:'compare',label:'Compare',icon:'compare'},
+ {r:'slot',label:'Fill a slot',icon:'slot'},{r:'watch',label:'Watchlist',icon:'bell',count:()=>ALERTS.filter(a=>a.sev==='risk'||a.sev==='warn').length},
+ {r:'model',label:'Scoring model',icon:'sliders'},{r:'method',label:'How scores work',icon:'book'}
+];
+const VIEWS = {};
+// Router keeps its own state so it also works where the URL hash can't change (e.g. a data: preview).
+let curRoute = decodeURIComponent(location.hash.slice(1)) || 'home';
+const navStack = [];
+function go(r){ if(r!==curRoute){ navStack.push(curRoute); curRoute = r; try{ history.pushState({r}, '', '#'+encodeURI(r)) }catch{} } route() }
+function back(){ let p = navStack.pop(); while(p && p.startsWith('research/')) p = navStack.pop(); curRoute = p || 'home'; try{ history.replaceState({r:curRoute}, '', '#'+encodeURI(curRoute)) }catch{} route() }
+function renderShell(){
+  $('#rail-nav').innerHTML = NAV.map(n=>`<a class="nav-item" href="#${n.r}" data-r="${n.r}">${ic(n.icon)}<span>${n.label}</span>${n.count?`<span class="count">${n.count()}</span>`:''}</a>`).join('');
+  $('#bottom-nav').innerHTML = NAV.slice(0,5).map(n=>`<a href="#${n.r}" data-r="${n.r}">${ic(n.icon)}<span>${n.label.replace('Fill a slot','Slots')}</span></a>`).join('');
+  $('#mall-name').textContent = `${MY_MALL.name}, ${MY_MALL.city}`;
+}
+function route(){
+  const [r, ...rest] = (curRoute || 'home').split('/'); const arg = rest.join('/');
+  const v = VIEWS[r] ? r : 'home';
+  $$('#rail-nav a, #bottom-nav a').forEach(a=>{ if(a.dataset.r===v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current') });
+  clearInterval(route.timer); route.timer = null; hideTip(); resetCharts();
+  const el = $('#view'); el.innerHTML = ''; window.scrollTo(0,0);
+  VIEWS[v](el, arg);
+}
+function openBrand(b){
+  if(b.id==='kestrel' && !state.researched.has('kestrel')) return go('research/Kestrel');
+  go('brand/'+b.id);
+}
+
+// ---------- Small pieces of markup ----------
+function scoreChip(b){ const s = scoreOf(b); return `<span class="score${s.capped?' capped':''}"${s.capped?' title="Capped by a red flag"':''}>${f1(s.score)}<small>/10</small></span>` }
+const BAND_BADGE = {good:'badge-success', ok:'badge-outline', warn:'badge-warning', risk:'badge-danger'};
+function bandPill(s){ const b = band(s); return `<span class="badge ${BAND_BADGE[b.k]}">${b.label}</span>` }
+function deltaHtml(d, suffix=' in 3 months'){
+  if(Math.abs(d)<0.05) return `<span class="delta" data-trend="flat">Steady</span>`;
+  return `<span class="delta" data-trend="${d>0?'up':'down'}">${d>0?'+':'−'}${Math.abs(d).toFixed(1)}${suffix}</span>`;
+}
+function confBadge(c){ return `<span class="badge${c.k==='Low'?' badge-warning':''}" data-tip="${esc(c.why)}">Confidence ${c.k.toLowerCase()}</span>` }
+const chev = () => ic('back','chev').replace('<svg ', '<svg style="transform:rotate(180deg)" ');
+function cardHead(title, sub='', right=''){ return `<div class="card-head"><div><div class="card-title">${title}</div>${sub?`<div class="card-sub">${sub}</div>`:''}</div>${right}</div>` }
+
+// ---------- Global search ----------
+function searchMatches(q){ const s = slug(q); if(!s) return []; return BRANDS.filter(b=>!b.generated||state.custom[b.id]).filter(b=>slug(b.name).includes(s)||slug(b.sub).includes(s)||slug(CATS[b.cat].label).includes(s)).slice(0,6) }
+function bindSearch(input, box){
+  let hi = -1, items = [];
+  const close = () => { box.hidden = true; hi = -1 };
+  const draw = () => {
+    const q = input.value.trim(); if(!q){ close(); return }
+    items = searchMatches(q);
+    box.innerHTML = items.map((b,i)=>`<button type="button" data-i="${i}" class="${i===hi?'hi':''}">${badge(b,24)}<span style="flex:1;min-width:0"><span class="w5">${esc(b.name)}</span> <span class="muted">${esc(b.sub)}</span></span>${scoreChip(b)}</button>`).join('')
+      + (items.length?'<div class="sep"></div>':'') + `<button type="button" class="new" data-new="1">${ic('search')} Research “${esc(q)}” as a new brand</button>`;
+    box.hidden = false;
+  };
+  const pick = i => { const q = input.value.trim(); input.value=''; close(); input.blur(); if(i>=0 && items[i]) openBrand(items[i]); else { const ex = findBrand(q); ex ? openBrand(ex) : go('research/'+encodeURIComponent(q)) } };
+  input.addEventListener('input', ()=>{hi=-1;draw()});
+  input.addEventListener('keydown', e=>{
+    if(e.key==='ArrowDown'){hi=Math.min(hi+1,items.length-1);draw();e.preventDefault()}
+    else if(e.key==='ArrowUp'){hi=Math.max(hi-1,-1);draw();e.preventDefault()}
+    else if(e.key==='Enter' && input.value.trim()){pick(hi)}
+    else if(e.key==='Escape'){close();input.blur()}
+  });
+  box.addEventListener('mousedown', e=>{ const btn = e.target.closest('button'); if(!btn) return; e.preventDefault(); pick(btn.dataset.new?-1:+btn.dataset.i) });
+  input.addEventListener('blur', ()=>setTimeout(close,120));
+}
+
+// ---------- Home ----------
+VIEWS.home = el => {
+  const rising = BRANDS.filter(b=>isRising(b)&&!b.closed&&!b.generated).sort((a,c)=>score(c)-score(a)).slice(0,4);
+  const gems = BRANDS.filter(b=>!b.closed&&!b.generated&&b.p.buzz<6.5).sort((a,c)=>fundamentals(c)-fundamentals(a)).slice(0,3);
+  const pairs = [['kestrel','pace18'],['brewline','indigobean'],['threadline','modaly']];
+  el.innerHTML = `
+  <header class="ph rise">
+    <div class="crumbs"><span>Brand Index</span><span class="dot-sep">/</span><span class="here">${esc(MY_MALL.name)}, ${esc(MY_MALL.city)}</span></div>
+    <h1 class="page-title" style="max-width:22ch">Score any retail or F&amp;B brand before you lease to it</h1>
+    <p class="page-desc">Type a name. An agent gathers facts from company filings, store maps, reviews and the press. A fixed formula turns them into one score you can check line by line.</p>
+    <div class="search lg" style="max-width:640px;margin-top:var(--space-2)">${ic('search')}<input id="hero-q" placeholder="Type a brand name, e.g. Kestrel" autocomplete="off" aria-label="Brand name"><button class="btn btn-primary" id="hero-go">Score it</button><div class="suggest" id="hero-sug" hidden></div></div>
+    <div class="chips" style="align-items:center"><span class="muted">Try</span>
+      <button class="chip" data-go="research/Kestrel">Kestrel, full research</button>
+      <button class="chip" data-go="compare/brewline,indigobean">Brewline vs Indigo Bean</button>
+      <button class="chip" data-go="compare/threadline,modaly">Threadline vs Modaly</button>
+      <button class="chip" data-go="brand/cornernine">Corner Nine</button>
+      <button class="chip" data-go="research/Kulfi Junction">A brand we've never seen</button>
+    </div>
+  </header>
+  <div class="grid-2 wide">
+    <section class="card flush rise" style="--i:1">${cardHead(`This week at ${esc(MY_MALL.name)}`,'Alerts on your current tenants','<a class="btn btn-ghost btn-sm" href="#watch">All alerts</a>')}
+      <ul class="list">${ALERTS.slice(0,4).map(alertHtml).join('')}</ul></section>
+    <section class="card flush rise" style="--i:2">${cardHead('Rising brands','Under 8 years old, ranked among themselves')}
+      <ul class="list">${rising.map(miniRow).join('')}</ul>
+      <div class="card-head" style="margin-top:var(--space-4)"><div><div class="card-title">Hidden gems</div><div class="card-sub">Strong business, little buzz</div></div></div>
+      <ul class="list">${gems.map(miniRow).join('')}</ul></section>
+  </div>
+  <div class="grid-2 wide">
+    <section class="card rise" style="--i:3">${cardHead("Check a broker's list",'Paste the brands a broker is pitching. Each one is scored independently.')}
+      <div class="grid-2" style="gap:var(--space-5)">
+        <div class="field"><label for="broker-list">One brand per line</label><textarea class="input" id="broker-list" rows="6">Ring Theory Donuts
+Cocoa Cove
+Patty Raja
+Saffa Roasters
+Fourth Pour Coffee</textarea><div class="row" style="margin-top:var(--space-2)"><button class="btn btn-secondary btn-sm" id="broker-go">Score the list</button><span class="muted xs">Unknown names get researched</span></div></div>
+        <div id="broker-out" style="min-width:0"></div>
+      </div></section>
+    <section class="card flush rise" style="--i:4">${cardHead('Head to head','The match-ups from the leasing meeting')}
+      <ul class="list">${pairs.map(([a,c])=>{const A=brandOf(a),C=brandOf(c);return `<li class="click" data-go="compare/${a},${c}" tabindex="0" role="link">${badge(A,32)}<div class="lead-text"><span class="w5">${esc(A.name)} <span class="muted" style="font-weight:400">vs</span> ${esc(C.name)}</span><span class="muted xs">${esc(CATS[A.cat].label)}</span></div><div class="end">${scoreChip(A)}<span class="dot-sep">·</span>${scoreChip(C)}</div></li>`}).join('')}</ul>
+      <p class="muted xs pad" style="padding-block:var(--space-3) var(--space-4)">Scores use your mall's weights (${esc(PRESETS[state.preset]?.label||'Custom')}). <a class="link" href="#model">Change</a></p></section>
+  </div>`;
+  bindSearch($('#hero-q'), $('#hero-sug'));
+  $('#hero-go').onclick = () => { const q=$('#hero-q').value.trim(); if(!q){$('#hero-q').focus();return} const ex=findBrand(q); ex?openBrand(ex):go('research/'+encodeURIComponent(q)) };
+  const runBroker = () => {
+    const names = $('#broker-list').value.split(/\n|,/).map(s=>s.trim()).filter(Boolean).slice(0,12);
+    const rows = names.map(n=>findBrand(n)||generateBrand(n)).sort((a,c)=>score(c)-score(a));
+    $('#broker-out').innerHTML = `<div class="table-wrap"><div class="table-scroll"><table class="table"><thead><tr><th>Brand</th><th data-numeric>Score</th><th>Watch out for</th></tr></thead><tbody>${rows.map(b=>{const f=b.flags.filter(f=>f.sev!=='good')[0];return `<tr data-href data-brand="${b.id}"><td><span class="w5">${esc(b.name)}</span>${b.generated?' <span class="badge" style="min-height:20px;margin-left:4px">New</span>':''}</td><td data-numeric>${scoreChip(b)}</td><td class="secondary">${f?esc(f.t):'<span class="muted">No red flags</span>'}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  };
+  $('#broker-go').onclick = runBroker; runBroker();
+};
+function miniRow(b){ return `<li class="click" data-brand="${b.id}" tabindex="0" role="link">${badge(b,32)}<div class="lead-text"><span class="w5">${esc(b.name)}</span><span class="muted xs">${esc(b.sub)} · ${age(b)} yrs old</span></div><div class="end">${sparkline(trendOf(b),{w:64,h:22})}${scoreChip(b)}</div></li>` }
+const SEV = {risk:{icon:'stop',cls:'danger',label:'Serious'}, warn:{icon:'warn',cls:'warning',label:'Watch'}, good:{icon:'up',cls:'success',label:'Good news'}, info:{icon:'info',cls:'',label:'Heads up'}};
+function alertHtml(a){
+  const b = brandOf(a.brand), s = SEV[a.sev];
+  return `<li class="click top" data-go="brand/${b.id}" tabindex="0" role="link"><span class="sev ${s.cls}" title="${s.label}">${ic(s.icon)}</span><div class="lead-text"><span class="w5">${esc(a.t)}</span><span class="secondary" style="margin-top:2px">${esc(a.d)}</span></div><span class="note">${esc(a.when)}</span></li>`;
+}
+
+// ---------- Research flow (confirm -> collect -> score) ----------
+VIEWS.research = (el, q) => {
+  q = (q||'').trim(); if(!q) return go('home');
+  const known = findBrand(q);
+  let cands;
+  if(known && known.id==='kestrel'){
+    cands = [{b:known, desc:`${known.sub} · ${known.hq} · ${known.parent}`},
+             {b:{id:'kestrel-elec',name:'Kestrel Electronics'}, desc:'Single electronics store · Kochi · Kestrel Appliances LLP', small:true},
+             {b:{id:'kestrel-cafe',name:'Kestrel Café & Bakery'}, desc:'Single café · Pune · sole proprietorship', small:true}];
+  } else if(known){ return go('brand/'+known.id) }
+  else cands = [0,1].map(v=>{ const b = generateBrand(q,v,false); return {b, desc:`${b.sub} · ${CATS[b.cat].label} · ${b.hq} · founded ${b.founded}`, variant:v} });
+  el.innerHTML = `
+  <header class="ph">
+    <div class="crumbs"><button onclick="back()">Back</button><span class="dot-sep">/</span><span class="here">Step 1 of 2 · Confirm the brand</span></div>
+    <h1 class="page-title">Which “${esc(q)}” do you mean?</h1>
+    <p class="page-desc">Several businesses use this name. Pick the right one once, and everyone at your company gets the same brand next time.</p>
+  </header>
+  <div class="options" style="max-width:720px">${cands.map((c,i)=>`<button class="option rise" style="--i:${i}" data-i="${i}">${badge(c.b,40)}<span style="min-width:0"><span class="w5 base" style="display:block">${esc(c.b.name)}</span><span class="secondary">${esc(c.desc)}</span></span>${chev()}</button>`).join('')}
+    <button class="option dashed rise" style="--i:${cands.length}" data-none="1"><span class="av md">?</span><span><span class="w5 base" style="display:block">None of these</span><span class="secondary">Add it by hand with a website or company number</span></span></button></div>`;
+  $$('.option', el).forEach(btn=>btn.onclick=()=>{
+    if(btn.dataset.none){ toast('In the full app you could add a website or company number to pin down the brand.'); return }
+    const c = cands[+btn.dataset.i]; let b = c.b;
+    if(c.small){ toast(`${b.name} is a single outlet, so there isn't enough data to score it. Pick another.`); return }
+    if(b.generated && !BRAND_BY_ID[b.id]) b = generateBrand(b.name, c.variant||0, true);
+    runResearch(el, b);
+  });
+};
+function runResearch(el, b){
+  const fnb = FNB.has(b.cat);
+  const steps = [
+    {t:'Identify the brand',src:'Company registry, brand website',facts:[b.sub, `HQ ${b.hq}`, `Parent: ${b.parent}`, `Founded ${b.founded}`]},
+    {t:'Company filings',src:'MCA filings, stock exchange reports',facts: b.rev!=null ? [`FY25 revenue ${inr(b.rev)}`, `Net ${b.pat<0?'loss':'profit'} ${inr(Math.abs(b.pat))}`] : ['No public filings, pillar skipped'], drop: b.rev!=null ? '“Valued at ₹2,000 Cr” (blog post, no source)' : null},
+    {t:'Funding and ownership',src:'Startup databases, press releases',facts:[b.funding, b.own].concat(b.lastRaise?[`Last raise ${b.lastRaise} months ago`]:[])},
+    {t:'Store footprint',src:'Google Maps, brand store locator, monthly snapshots',facts:[`${b.stores} stores`, `${b.cities} cities`, `+${b.open12} opened, −${b.close12} closed in 12 months`]},
+    {t:'Customer reviews',src: fnb ? 'Google reviews, Zomato' : 'Google reviews',facts:[`${b.rating.toFixed(1)}★ average`, `${b.reviews.toLocaleString('en-IN')} reviews`, b.id==='softstep'?'Review spike flagged':'No unusual review spikes']},
+    {t:'Mall track record',src:'Mall directories, lease registrations',facts:[`In ${b.malls} malls`, `Average stay ${b.tenure.toFixed(1)} years`, `${b.exits} exits in 3 years`]},
+    {t:'Press and social',src:'Indian business press, Instagram',facts:[`${b.articles90} articles in 90 days`, `${compact(b.igFollowers)} Instagram followers`], drop:'“Opening 50 stores this year” (reel, no source)'},
+    {t:'Score with the fixed formula',src:'No AI here. The same formula for every brand.',facts:[`Peer group: ${CATS[b.cat].label}`, isYoung(b)?'Young-brand weights applied':'Standard weights', `Score ${f1(score(b))} / 10`]}
+  ];
+  el.innerHTML = `
+  <header class="ph">
+    <div class="crumbs"><span>Research</span><span class="dot-sep">/</span><span class="here">Step 2 of 2 · Collecting facts</span></div>
+    <div class="title-row">${badge(b,48)}<h1 class="page-title">${esc(b.name)}</h1><div class="actions"><button class="btn btn-secondary btn-sm" id="skip">Skip to result</button></div></div>
+  </header>
+  <div class="grid-2 wide">
+    <section class="card">${cardHead('What the agent found','Each source is read in turn')}<ol class="steps">${steps.map((s,i)=>`<li class="wait" data-i="${i}"><span class="st"></span><div style="min-width:0"><div class="w5">${esc(s.t)}</div><div class="muted xs">${esc(s.src)}</div><div class="facts"></div></div><span class="note muted xs" data-n></span></li>`).join('')}</ol></section>
+    <aside class="card stack" style="gap:var(--space-5)">
+      <div><div class="card-title">How this works</div><p class="secondary" style="margin-top:6px">The AI only collects facts. Each fact must come with a link and a date, or it is thrown out. A fixed formula turns the facts into the score, so the same facts always give the same score.</p></div>
+      <div class="kv" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div><span>Sources</span><b id="c-src">0</b></div><div><span>Facts kept</span><b id="c-keep">0</b></div><div><span>Thrown out</span><b id="c-drop">0</b></div></div>
+      <div class="callout">Facts refresh monthly. The store counts we record every month build a history nobody else can recreate later.</div>
+    </aside>
+  </div>`;
+  let i = 0, src = 0, keep = 0, drop = 0;
+  const finish = () => { if(!$('#skip')) return; clearInterval(route.timer); state.researched.add(b.id); saveState(); toast(`${b.name} added to the index`); go('brand/'+b.id) };
+  $('#skip').onclick = finish;
+  const tick = () => {
+    if(i>0){ const prev = $(`.steps li[data-i="${i-1}"]`); prev.classList.remove('run'); prev.classList.add('done'); prev.querySelector('.st').innerHTML = ic('check') }
+    if(i>=steps.length){ clearInterval(route.timer); setTimeout(finish, 700); return }
+    const s = steps[i], row = $(`.steps li[data-i="${i}"]`); row.classList.remove('wait'); row.classList.add('run');
+    const box = row.querySelector('.facts');
+    s.facts.forEach((f,j)=>setTimeout(()=>{ if(box.isConnected) box.insertAdjacentHTML('beforeend',`<span class="badge">${esc(f)}</span>`) }, j*140));
+    if(s.drop) setTimeout(()=>{ if(!box.isConnected) return; box.insertAdjacentHTML('beforeend',`<span class="badge drop" title="Thrown out: no source">${esc(s.drop)}</span>`); drop++; $('#c-drop').textContent=drop }, s.facts.length*140+80);
+    const n = 1 + Math.floor(rng(hash(b.id+i))()*5) + (i===3?3:0);
+    src += n; keep += s.facts.length; row.querySelector('[data-n]').textContent = i<steps.length-1 ? `${n} sources` : '';
+    $('#c-src').textContent = src; $('#c-keep').textContent = keep;
+    i++;
+  };
+  tick(); route.timer = setInterval(tick, 720);
+}
+
+// ===== views2.js =====
+// ---------- Brand page ----------
+function pillarWhy(b,k){
+  switch(k){
+    case 'fin': return b.rev==null ? (b.parentScore ? 'No brand-level filings. Parent shown separately.' : 'No public filings. Left out, not scored as zero.') : `${b.pat<0?'Loss':'Profit'} of ${inr(Math.abs(b.pat))} on ${inr(b.rev)} revenue`;
+    case 'mom': return `+${b.open12} opened, −${b.close12} closed in 12 months`;
+    case 'cus': return `${b.rating.toFixed(1)}★ from ${compact(b.reviews)} reviews`;
+    case 'mall': return `${b.malls} malls, average stay ${b.tenure.toFixed(1)} years, ${b.exits} exits`;
+    case 'buzz': return `${b.articles90} articles in 90 days`;
+  }
+}
+const peersOf = b => BRANDS.filter(x=>x.cat===b.cat && !x.generated && !x.closed);
+function pillarRows(b){
+  const {w} = effWeights(b), peers = peersOf(b);
+  return PILLARS.map(p=>{
+    const v = b.p[p.k], pv = peers.map(x=>x.p[p.k]).filter(x=>x!=null), avg = pv.length ? pv.reduce((a,c)=>a+c,0)/pv.length : null;
+    return `<div class="pillar" data-tip="${esc(p.desc)}"><div><div class="name">${p.label}<small>${Math.round(w[p.k]*100)}% weight</small></div><div class="why">${esc(pillarWhy(b,p.k))}</div></div>
+      <div class="meter peer${v==null?' na':''}">${v==null?'':`<i style="width:${v*10}%"></i>`}${avg!=null?`<span class="mark" style="left:${avg*10}%"></span>`:''}</div>
+      <div class="val${v==null?' na':''}">${v==null?'n/a':f1(v)}</div></div>`;
+  }).join('');
+}
+const FLAG = {good:{k:'success',icon:'up',label:'Good news'}, watch:{k:'warning',icon:'warn',label:'Watch'}, serious:{k:'danger',icon:'stop',label:'Serious'}, critical:{k:'danger',icon:'stop',label:'Critical'}};
+function flagsHtml(b){
+  if(!b.flags.length) return `<div class="alert alert-success">${ic('shield')}<div><div class="alert-title">No red flags found</div><div class="alert-desc">No insolvency cases, mass closures or unpaid-dues disputes in any source.</div></div></div>`;
+  return b.flags.map(f=>{ const F = FLAG[f.sev]; return `<div class="alert alert-${F.k}">${ic(F.icon)}<div><div class="alert-title">${esc(f.t)}<span class="badge badge-${F.k}" style="min-height:20px">${F.label}</span></div><div class="alert-desc">${esc(f.d)}</div></div></div>` }).join('');
+}
+VIEWS.brand = (el, id) => {
+  const b = brandOf(id); if(!b) return go('home');
+  const s = scoreOf(b), watched = state.watch.has(b.id), tenant = TENANTS.find(t=>t.id===b.id);
+  const TABS = ['Overview','Stores and malls','Customers','Financials','Score maths','Evidence'];
+  el.innerHTML = `
+  <header class="ph">
+    <div class="crumbs"><button onclick="back()">Back</button><span class="dot-sep">/</span><span>${esc(CATS[b.cat].label)}</span><span class="dot-sep">/</span><span class="here">${esc(b.name)}</span></div>
+    <div class="title-row">${badge(b,48)}<h1 class="page-title">${esc(b.name)}</h1>${b.closed?'<span class="badge badge-danger">Closed</span>':bandPill(s.score)}
+      <div class="actions"><button class="btn btn-secondary btn-sm" id="b-watch">${ic(watched?'check':'eye')} ${watched?'Watching':'Watch'}</button><button class="btn btn-secondary btn-sm" id="b-cmp">${ic('compare')} Compare</button><button class="btn btn-primary btn-sm" id="b-memo">${ic('file')} Leasing memo</button></div></div>
+    <p class="page-desc">${esc(b.summary)}</p>
+    <div class="meta-row"><span>${esc(b.sub)}</span><span>Founded <strong>${b.founded}</strong></span><span>HQ <strong>${esc(b.hq)}</strong></span><span><strong>${esc(b.own)}</strong></span><span>Company <strong>${esc(b.parent)}</strong></span>${tenant?`<span>Your tenant at <strong>${tenant.unit}</strong></span>`:''}<span>Refreshed <strong>3 days ago</strong></span></div>
+    <div class="tabs" role="tablist" id="b-tabs">${TABS.map((t,i)=>`<button class="tab" role="tab" data-t="${i}" aria-selected="${i===0}">${t}${i===5?` <span class="count">${b.evidence.length}</span>`:''}</button>`).join('')}</div>
+  </header>
+  <div id="b-tab" style="display:grid;gap:var(--space-5)"></div>`;
+  const tabs = [tabOverview, tabStores, tabCustomers, tabFinancials, tabMaths, tabEvidence];
+  const show = i => { $$('#b-tabs .tab').forEach(x=>x.setAttribute('aria-selected', +x.dataset.t===i)); resetCharts(); hideTip(); $('#b-tab').innerHTML = ''; tabs[i]($('#b-tab'), b) };
+  $$('#b-tabs .tab').forEach(x=>x.onclick=()=>show(+x.dataset.t)); show(0);
+  $('#b-watch').onclick = () => { state.watch.has(b.id)?state.watch.delete(b.id):state.watch.add(b.id); saveState(); toast(state.watch.has(b.id)?`Watching ${b.name}. You'll get alerts on closures, rating drops and filings.`:`Stopped watching ${b.name}`); route() };
+  $('#b-cmp').onclick = () => { const c = state.compare.filter(x=>x!==b.id); c.unshift(b.id); state.compare = c.slice(0,3); saveState(); go('compare/'+state.compare.join(',')) };
+  $('#b-memo').onclick = () => openMemo(b);
+};
+function tabOverview(el, b){
+  const s = scoreOf(b), conf = confidence(b), pr = peerRank(b), {adjusted, missing} = effWeights(b);
+  const others = peersOf(b).filter(x=>x.id!==b.id), t = trendOf(b);
+  const avgT = others.length ? MONTHS.map((_,i)=>r1(others.reduce((a,x)=>a+trendOf(x)[i],0)/others.length)) : null;
+  const catAvg = others.length ? r1(others.reduce((a,x)=>a+score(x),0)/others.length) : null;
+  el.innerHTML = `
+  <div class="grid-2 lead">
+    <section class="card tall col rise">
+      <div class="card-head"><span class="metric-label">Brand Index score</span>${deltaHtml(b.d3,'')}</div>
+      <div class="metric"><span class="metric-value"${s.capped?' style="color:var(--danger)"':''}>${f1(s.score)}<span class="unit">/10</span></span>
+        <span class="metric-note">#${pr.rank} of ${pr.of} ${esc(CATS[b.cat].label.toLowerCase())} in the index · change over 3 months</span></div>
+      ${s.capped?`<p class="xs" style="color:var(--danger);margin-top:var(--space-3)">Capped at ${CAP[s.capBy.sev].toFixed(1)} by a ${s.capBy.sev} red flag. Without it the score would be ${f1(s.raw)}.</p>`:''}
+      <div style="margin-top:auto;padding-top:var(--space-8);display:grid;gap:var(--space-3)">
+        <div class="row" style="justify-content:space-between"><span class="secondary">${catAvg==null?'No peers yet':`${esc(CATS[b.cat].label)} average ${f1(catAvg)}`}</span>${confBadge(conf)}</div>
+        <div class="meter peer"><i style="width:${s.score*10}%"></i>${catAvg!=null?`<span class="mark" style="left:${catAvg*10}%"></span>`:''}</div>
+      </div>
+    </section>
+    <section class="card rise" style="--i:1">${cardHead('Score over time','Averaged monthly, so one news story can’t swing it','<div class="seg" id="t-range"><button data-m="3">3M</button><button data-m="6">6M</button><button data-m="12" aria-pressed="true">12M</button></div>')}<div id="t-chart"></div></section>
+  </div>
+  <section class="alerts rise" style="--i:2">${flagsHtml(b)}</section>
+  <section class="card rise" style="--i:3">${cardHead(`Why it scored ${f1(s.score)}`, `Each pillar is scored against other ${esc(CATS[b.cat].label.toLowerCase())}. The tick on each bar is the category average.`)}
+    <div>${pillarRows(b)}</div>
+    ${adjusted||missing.length||b.parentScore?`<div class="stack" style="margin-top:var(--space-4);gap:var(--space-2)">
+      ${adjusted?`<p class="muted xs">Young brand (${age(b)} years): financials count half as much, and momentum and customers count more.</p>`:''}
+      ${missing.length?`<p class="muted xs">No data for ${missing.map(k=>PILLARS.find(p=>p.k===k).label.toLowerCase()).join(', ')}. It's left out of the score and confidence is lowered.</p>`:''}
+      ${b.parentScore?`<p class="muted xs">Parent company financial strength is ${b.parentScore.toFixed(1)}. It's shown separately so a strong parent can't hide a weak brand.</p>`:''}</div>`:''}
+  </section>
+  <div class="grid-2">
+    <section class="card">${cardHead('Stores opened and closed','Per quarter, from our monthly snapshots')}${storeBars(b.quarters)}</section>
+    <section class="card">${cardHead('Key facts')}<div class="kv">
+      <div><span>Stores</span><b>${b.stores}</b></div><div><span>Cities</span><b>${b.cities}</b></div><div><span>Malls</span><b>${b.malls}</b></div>
+      <div><span>Typical unit</span><b class="sm">${b.unit[0].toLocaleString('en-IN')}–${b.unit[1].toLocaleString('en-IN')} sq ft</b></div><div><span>Rent paid elsewhere</span><b class="sm">${esc(b.rent)} per sq ft</b></div><div><span>Funding</span><b class="sm">${esc(b.funding)}</b></div>
+    </div></section>
+  </div>`;
+  const all = t.concat(avgT||[]), lo = Math.max(0, Math.floor(Math.min(...all)-.5)), hi = Math.min(10, Math.ceil(Math.max(...all)+.5));
+  const drawTrend = m => { $('#t-chart').innerHTML = lineChart([{label:b.name,color:'var(--chart-ink)',values:t.slice(-m)}].concat(avgT?[{label:`${CATS[b.cat].label} average`,color:'var(--text-muted)',dashed:true,values:avgT.slice(-m)}]:[]), {labels:MONTHS.slice(-m), h:220, ymin:lo, ymax:hi, legend:true}) };
+  $$('#t-range button').forEach(x=>x.onclick=()=>{ $$('#t-range button').forEach(y=>y.setAttribute('aria-pressed', y===x)); drawTrend(+x.dataset.m) });
+  drawTrend(12);
+}
+function tabStores(el, b){
+  el.innerHTML = `
+  <div class="grid-2 wide">
+    <section class="card">${cardHead('Openings and closures','Last 8 quarters')}${storeBars(b.quarters,{h:250})}</section>
+    <section class="card">${cardHead('Footprint')}<div class="kv" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <div><span>Net change, 12 months</span><b class="${b.open12-b.close12>=0?'up':'down'}">${b.open12-b.close12>=0?'+':'−'}${Math.abs(b.open12-b.close12)}</b></div>
+      <div><span>Average stay in a mall</span><b>${b.tenure.toFixed(1)}<span class="muted" style="font-size:.6em"> yrs</span></b></div>
+      <div><span>Mall exits, 3 years</span><b>${b.exits}</b></div><div><span>Cities</span><b>${b.cities}</b></div></div></section>
+  </div>
+  <section>${cardHead('Mall history','A sample from mall directories and lease records')}
+    <div class="table-wrap"><div class="table-scroll"><table class="table"><thead><tr><th>Mall</th><th>City</th><th data-numeric>Since</th><th>Status</th></tr></thead><tbody>
+    ${b.mallList.map(m=>`<tr><td class="w5">${esc(m.m)}</td><td class="secondary">${esc(m.city)}</td><td data-numeric>${m.since}</td><td>${m.status==='Trading'?'<span class="badge badge-success">Trading</span>':`<span class="badge badge-danger">Left in ${m.left}</span>`}</td></tr>`).join('')}
+    </tbody></table></div></div></section>`;
+}
+function tabCustomers(el, b){
+  const peers = BRANDS.filter(x=>x.cat===b.cat&&!x.generated), avg = peers.reduce((a,c)=>a+c.rating,0)/peers.length;
+  const spike = b.reviewVel.at(-1) > 3*b.reviewVel[0];
+  el.innerHTML = `
+  <div class="grid-2 wide">
+    <section class="card">${cardHead('New Google reviews per month','A sudden jump can mean bought reviews')}${lineChart([{label:'New reviews',color:'var(--chart-ink)',values:b.reviewVel}],{labels:MONTHS,h:220,ymin:0,fmt:v=>compact(Math.round(v)),tick:t=>compact(t)})}</section>
+    <section class="card stack" style="gap:var(--space-5)">
+      <div class="kv" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><span>Google rating</span><b>${b.rating.toFixed(1)}<span class="muted" style="font-size:.6em">★</span></b></div><div><span>Reviews</span><b>${compact(b.reviews)}</b></div></div>
+      <div class="stack" style="gap:var(--space-2)"><span class="secondary">Against ${esc(CATS[b.cat].label.toLowerCase())} in the index</span>
+        ${[['This brand',b.rating],['Category average',avg]].map(([l,v],i)=>`<div class="row nowrap"><span style="width:130px" class="${i?'muted':''}">${l}</span><div class="meter" style="flex:1"><i style="width:${(v-3)/2*100}%${i?';background:var(--border-strong)':''}"></i></div><span class="num w5" style="width:36px;text-align:right">${v.toFixed(2)}</span></div>`).join('')}
+        <p class="muted xs">The scale runs from 3.0 to 5.0. A 4.2 means more for a café than a food-court counter, so ratings are compared within the category.</p></div>
+      ${FNB.has(b.cat)?`<div class="callout">Zomato ratings count for restaurants and cafés. Reels shot at outlets count toward buzz, not customer love.</div>`:''}
+    </section>
+  </div>
+  ${spike?`<div class="alert alert-warning">${ic('warn')}<div><div class="alert-title">Review spike detected</div><div class="alert-desc">October is ${Math.round(b.reviewVel.at(-1)/b.reviewVel[0])}× the usual volume. The customer score is frozen at its September value until the reviews are checked.</div></div></div>`:''}`;
+}
+function tabFinancials(el, b){
+  const runway = b.pat<0 && b.lastRaise ? Math.max(3, Math.round(26 - b.lastRaise*.9)) : null;
+  el.innerHTML = `
+  <div class="grid-2">
+    <section class="card">${cardHead(esc(b.name),'This brand')}<div class="kv" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <div><span>Revenue FY25</span><b>${inr(b.rev)}</b></div>
+      <div><span>Net profit or loss</span><b class="${b.pat==null?'':b.pat<0?'down':'up'}">${b.pat==null?'—':inr(b.pat)}</b></div>
+      <div><span>Funding</span><b class="sm">${esc(b.funding)}</b></div>
+      <div><span>Estimated cash runway</span><b>${runway?`${runway}<span class="muted" style="font-size:.6em"> months</span>`:'—'}</b></div></div></section>
+    <section class="card">${cardHead(esc(b.parent),'Parent company')}<div class="kv" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <div><span>Parent strength</span><b>${b.parentScore?`${b.parentScore.toFixed(1)}<span class="muted" style="font-size:.6em">/10</span>`:'—'}</b></div>
+      <div><span>Ownership</span><b class="sm">${esc(b.own)}</b></div></div>
+      <p class="secondary" style="margin-top:var(--space-5)">${b.parentScore?'A parent like this can absorb losses, but it can also close a weak brand quickly. The brand score uses brand-level signals only.':'The brand and the company are the same business.'}</p></section>
+  </div>
+  <div class="callout"><b>How fresh is this?</b> The latest filing is FY25, filed in March 2026, so it's about 7 months old. Store counts and reviews update monthly and usually show trouble before the accounts do.</div>`;
+}
+function tabMaths(el, b){
+  const {w, adjusted} = effWeights(b), s = scoreOf(b);
+  el.innerHTML = `
+  <p class="secondary" style="max-width:68ch">The score is a weighted average of the five pillars. The AI never picks the number. Change the weights for your mall on the <a class="link" href="#model">scoring model</a> page.</p>
+  <div class="table-wrap"><div class="table-scroll"><table class="table"><thead><tr><th>Pillar</th><th data-numeric>Score</th><th data-numeric>Your weight</th><th data-numeric>Applied</th><th data-numeric>Adds</th></tr></thead><tbody>
+  ${PILLARS.map(p=>{const v=b.p[p.k]; return `<tr><td class="w5">${p.label}</td><td data-numeric>${f1(v)}</td><td data-numeric class="secondary">${state.weights[p.k]}%</td><td data-numeric>${Math.round(w[p.k]*100)}%</td><td data-numeric class="w5">${v==null?'—':(v*w[p.k]).toFixed(2)}</td></tr>`}).join('')}
+  <tr><td class="w5">Weighted total</td><td></td><td></td><td></td><td data-numeric class="w5">${s.raw.toFixed(1)}</td></tr>
+  ${s.capped?`<tr><td colspan="4" style="color:var(--danger)">Red-flag cap: ${esc(s.capBy.t)}</td><td data-numeric class="w5" style="color:var(--danger)">${CAP[s.capBy.sev].toFixed(1)}</td></tr>`:''}
+  </tbody></table></div></div>
+  <div class="grid-3">
+    <div class="card step-card"><h3>Age adjustment</h3><p class="secondary">${adjusted?`On. At ${age(b)} years old, financials count half as much and momentum and customers count more.`:'Off for this brand. It is 5 or more years old, so standard weights apply.'}</p></div>
+    <div class="card step-card"><h3>Missing data</h3><p class="secondary">A pillar with no data is left out and the other weights scale up. It never counts as zero.</p></div>
+    <div class="card step-card"><h3>Red-flag caps</h3><p class="secondary">A serious flag caps the score at 5.5 and a critical one at 3.0, however good the rest looks.</p></div>
+  </div>`;
+}
+const SRC_ABBR = {'Filing':'MCA','Exchange':'NSE','Funding':'₹','Store locator':'WEB','Google Maps':'MAP','Snapshot':'QL','Google reviews':'★','Zomato':'ZOM','Mall directories':'MALL','News':'NEWS','Instagram':'IG','Red flag':'!'};
+function tabEvidence(el, b){
+  let f = 'all';
+  el.innerHTML = `<div class="row" style="justify-content:space-between"><div class="seg" id="ev-f">${[['all','All'],...PILLARS.map(p=>[p.k,p.short])].map(([k,l])=>`<button data-f="${k}" aria-pressed="${k==='all'}">${l}</button>`).join('')}</div><span class="muted xs">Every fact has a link and a date. Facts without a source are thrown out.</span></div>
+    <section class="card flush"><ul class="list" id="ev-list"></ul></section>`;
+  const draw = () => {
+    const list = b.evidence.filter(e=>f==='all'||e.pillar===f);
+    $('#ev-list').innerHTML = list.map(e=>`<li class="top"><span class="av md" style="font-size:10px">${SRC_ABBR[e.type]||'SRC'}</span><div class="lead-text"><a href="#" class="w5" data-src="${esc(e.host)}" style="text-decoration:none">${esc(e.title)}</a><span class="secondary" style="margin-top:2px">${esc(e.fact)}</span><span class="muted xs" style="margin-top:2px">${esc(e.host)} · ${esc(PILLARS.find(p=>p.k===e.pillar).short)}</span></div><span class="note">${esc(e.date)}</span></li>`).join('') || '<li><div class="empty" style="grid-column:1/-1">No sources for this pillar.</div></li>';
+    $$('#ev-f button').forEach(x=>x.setAttribute('aria-pressed', x.dataset.f===f));
+    $$('[data-src]', el).forEach(a=>a.onclick=e=>{ e.preventDefault(); e.stopPropagation(); toast(`In the real app this opens the original page on ${a.dataset.src}`) });
+  };
+  $$('#ev-f button').forEach(x=>x.onclick=()=>{ f = x.dataset.f; draw() });
+  draw();
+}
+
+// ---------- Leasing memo ----------
+function openMemo(b){
+  const s = scoreOf(b), bd = band(s.score), conf = confidence(b), today = '21 Oct 2026';
+  const top = [...PILLARS].filter(p=>b.p[p.k]!=null).sort((a,c)=>b.p[c.k]-b.p[a.k]).slice(0,2);
+  const rec = {good:'Proceed to a term sheet on standard terms.',ok:'Proceed with the standard deposit and lock-in.',warn:'Proceed only with protections: a larger deposit or bank guarantee, a shorter lock-in and a performance exit clause.',risk:'Do not proceed for now. Check again in 6 months.'}[bd.k];
+  const risks = b.flags.filter(f=>f.sev!=='good');
+  const plain = `LEASING NOTE: ${b.name}\n${MY_MALL.name}, ${MY_MALL.city} · ${today}\n\nBrand Index score: ${f1(s.score)}/10 (${bd.label}, confidence ${conf.k.toLowerCase()})\n${PILLARS.map(p=>`- ${p.label}: ${f1(b.p[p.k])}`).join('\n')}\n\nSummary: ${b.summary}\nStrengths: ${top.map(p=>p.label+' ('+pillarWhy(b,p.k)+')').join('; ')}\nRisks: ${risks.length?risks.map(f=>f.t).join('; '):'No red flags found'}\n\nRecommendation: ${rec}\n\nBased on ${b.evidence.length} sourced facts. Prototype data, illustrative only.`;
+  const bg = document.createElement('div'); bg.className = 'overlay'; document.body.classList.add('memo-open');
+  bg.innerHTML = `<div class="dialog" role="dialog" aria-modal="true" aria-label="Leasing memo" style="width:min(100%,40rem)">
+    <div class="stack" style="gap:var(--space-5)">
+      <div class="row" style="justify-content:space-between"><span class="muted xs">Leasing committee note · ${esc(MY_MALL.name)}, ${esc(MY_MALL.city)}</span><span class="muted xs num">${today}</span></div>
+      <div class="row nowrap" style="gap:var(--space-4)">${badge(b,48)}<div style="flex:1;min-width:0"><h2 style="font-size:var(--text-2xl)">${esc(b.name)}</h2><span class="secondary">${esc(b.sub)} · ${esc(b.parent)}</span></div><span class="metric-value" style="font-size:var(--text-3xl)">${f1(s.score)}<span class="unit">/10</span></span></div>
+      <p class="base">${esc(b.summary)}</p>
+      <div class="table-wrap"><table class="table memo-table"><tbody>${PILLARS.map(p=>`<tr><td class="w5">${p.label}</td><td data-numeric class="w5">${f1(b.p[p.k])}</td><td class="secondary">${esc(pillarWhy(b,p.k))}</td></tr>`).join('')}</tbody></table></div>
+      <div class="stack" style="gap:var(--space-2)"><div class="card-title">Risks</div>${risks.length?risks.map(f=>`<div class="row nowrap" style="align-items:flex-start"><span style="color:var(--warning);margin-top:1px">${ic('warn')}</span><span><span class="w5">${esc(f.t)}.</span> <span class="secondary">${esc(f.d)}</span></span></div>`).join(''):'<p class="secondary">No red flags found in any source.</p>'}</div>
+      <div class="callout"><b>Recommendation.</b> ${esc(rec)}</div>
+      <p class="muted xs">${bandPill(s.score)} Confidence ${conf.k.toLowerCase()} · ${b.evidence.length} sourced facts · ${esc(PRESETS[state.preset]?.label||'Custom')} weights · prototype data, illustrative only</p>
+      <div class="row no-print"><button class="btn btn-primary" id="m-copy">${ic('copy')} Copy as text</button><button class="btn btn-secondary" id="m-print">${ic('print')} Print</button><span class="spacer"></span><button class="btn btn-ghost" id="m-close">Close</button></div>
+    </div></div>`;
+  $$('svg', bg).forEach(s=>{ if(!s.closest('.btn')){ s.style.width='16px'; s.style.height='16px' } });
+  document.body.appendChild(bg);
+  const close = () => { bg.remove(); document.body.classList.remove('memo-open'); document.removeEventListener('keydown', onKey) };
+  const onKey = e => { if(e.key==='Escape') close() };
+  document.addEventListener('keydown', onKey);
+  bg.onclick = e => { if(e.target===bg) close() };
+  $('#m-close').onclick = close;
+  $('#m-print').onclick = () => window.print();
+  $('#m-copy').onclick = () => { navigator.clipboard?.writeText(plain).then(()=>toast('Memo copied'),()=>toast('The browser blocked copying')) ?? toast('Copying is not available here') };
+}
+
+// ===== views3.js =====
+// ---------- Compare ----------
+const SERIES = ['var(--series-1)','var(--series-2)','var(--series-3)'];
+VIEWS.compare = (el, arg) => {
+  let ids = (arg ? arg.split(',') : state.compare).filter(id=>brandOf(id)).slice(0,3);
+  if(ids.length<2) ids = ['kestrel','pace18'];
+  state.compare = ids; saveState();
+  const bs = ids.map(brandOf), n = bs.length;
+  const opts = sel => [...BRANDS].filter(b=>!b.generated||state.custom[b.id]).sort((a,c)=>a.name.localeCompare(c.name)).map(b=>`<option value="${b.id}"${b.id===sel?' selected':''}>${esc(b.name)}</option>`).join('');
+  const rows = [
+    {l:'Overall score', v:b=>score(b), fmt:v=>f1(v), best:'max', big:true},
+    ...PILLARS.map(p=>({l:p.label, v:b=>b.p[p.k], fmt:v=>f1(v), best:'max', bar:true})),
+    {l:'Stores', v:b=>b.stores, fmt:v=>v.toLocaleString('en-IN'), best:'max'},
+    {l:'Net stores, 12 months', v:b=>b.open12-b.close12, fmt:v=>(v>=0?'+':'−')+Math.abs(v), best:'max'},
+    {l:'Google rating', v:b=>b.rating, fmt:v=>v.toFixed(1)+'★', best:'max'},
+    {l:'Average stay in a mall', v:b=>b.tenure, fmt:v=>v.toFixed(1)+' years', best:'max'},
+    {l:'Net profit FY25', v:b=>b.pat, fmt:v=>inr(v), best:'max'},
+    {l:'Red flags', v:b=>b.flags.filter(f=>f.sev!=='good').length, fmt:v=>v?`${v} flag${v>1?'s':''}`:'None', best:'min'},
+  ];
+  const cell = (r,b,vals) => { const v = r.v(b), valid = vals.filter(x=>x!=null); const win = v!=null && valid.length>1 && new Set(valid).size>1 && v===(r.best==='max'?Math.max(...valid):Math.min(...valid));
+    return `<div class="cmp-cell${r.big?' big':''}"><span class="v">${v==null?'<span class="muted" style="font-weight:400">n/a</span>':r.fmt(v)}${win?ic('check'):''}</span>${r.bar&&v!=null?`<div class="meter"><i style="width:${v*10}%"></i></div>`:''}</div>` };
+  const sorted = [...bs].sort((a,c)=>score(c)-score(a)), A = sorted[0], B = sorted[1];
+  const gaps = PILLARS.filter(p=>A.p[p.k]!=null&&B.p[p.k]!=null).map(p=>({p, g:A.p[p.k]-B.p[p.k]})).sort((x,y)=>y.g-x.g);
+  const lead = gaps[0], lag = gaps.at(-1);
+  const verdict = Math.abs(score(A)-score(B))<0.15 ? `${A.name} and ${B.name} are level overall. Pick on fit: ${A.name} is stronger on ${lead.p.label.toLowerCase()}, ${B.name} on ${lag.p.label.toLowerCase()}.`
+    : `${A.name} scores ${(score(A)-score(B)).toFixed(1)} higher, mainly on ${lead.p.label.toLowerCase()} (${f1(A.p[lead.p.k])} vs ${f1(B.p[lead.p.k])}).${lag.g<0?` ${B.name} does better on ${lag.p.label.toLowerCase()}.`:''}`;
+  const presets = [['kestrel,pace18','Kestrel vs Pace18'],['brewline,indigobean','Brewline vs Indigo Bean'],['threadline,modaly','Threadline vs Modaly']];
+  el.innerHTML = `
+  <header class="ph">
+    <div class="title-row"><h1 class="page-title">Compare</h1><div class="actions"><div class="seg" id="c-pre">${presets.map(([v,l])=>`<button data-p="${v}" aria-pressed="${ids.join(',')===v}">${l}</button>`).join('')}</div></div></div>
+    <p class="page-desc">Up to three brands side by side, pillar by pillar. A check marks the better value.</p>
+  </header>
+  <div class="verdict rise"><b>Verdict.</b> ${esc(verdict)}</div>
+  <section class="card rise" style="--i:1">
+    <div class="cmp" style="--n:${n}">
+      <div class="cmp-row" style="align-items:start"><span class="lab">Brand</span>${bs.map((b,i)=>`<div class="cmp-head">
+        <div class="row nowrap"><span class="key" style="--c:${SERIES[i]}"></span><select class="select" data-slot="${i}" aria-label="Brand ${i+1}" style="flex:1">${opts(b.id)}</select>${n>2?`<button class="icon-btn" data-rm="${i}" title="Remove" aria-label="Remove ${esc(b.name)}" style="width:32px;height:32px">${ic('x')}</button>`:''}</div>
+        <div class="row"><a href="#brand/${b.id}" class="link xs">${esc(b.sub)}</a>${bandPill(score(b))}</div></div>`).join('')}</div>
+      ${rows.map(r=>{ const vals = bs.map(r.v); return `<div class="cmp-row"><span class="lab">${r.l}</span>${bs.map(b=>cell(r,b,vals)).join('')}</div>` }).join('')}
+      <div class="cmp-row" style="align-items:start"><span class="lab">Summary</span>${bs.map(b=>`<p class="secondary">${esc(b.summary)}</p>`).join('')}</div>
+    </div>
+    ${n<3?`<div style="margin-top:var(--space-4)"><button class="btn btn-secondary btn-sm" id="c-add">${ic('plus')} Add a third brand</button></div>`:''}
+  </section>
+  <section class="card rise" style="--i:2">${cardHead('Score over 12 months')}${lineChart(bs.map((b,i)=>({label:b.name,color:SERIES[i],values:trendOf(b)})),{labels:MONTHS,h:240,ymin:0,ymax:10,legend:true})}</section>`;
+  $$('#c-pre button').forEach(b=>b.onclick=()=>go('compare/'+b.dataset.p));
+  $$('select[data-slot]', el).forEach(s=>s.onchange=()=>{ const next=[...ids]; next[+s.dataset.slot]=s.value; go('compare/'+[...new Set(next)].join(',')) });
+  $$('[data-rm]', el).forEach(b=>b.onclick=()=>go('compare/'+ids.filter((_,i)=>i!==+b.dataset.rm).join(',')));
+  $('#c-add')?.addEventListener('click', ()=>{ const pick = BRANDS.filter(b=>b.cat===bs[0].cat && !ids.includes(b.id)).sort((a,c)=>score(c)-score(a))[0] || BRANDS.find(b=>!ids.includes(b.id)); go('compare/'+[...ids, pick.id].join(',')) });
+};
+
+// ---------- Discover ----------
+VIEWS.discover = (el, arg) => {
+  let tab = ['board','rising','hype'].includes(arg) ? arg : 'board', cat = 'all';
+  el.innerHTML = `
+  <header class="ph">
+    <div class="title-row"><h1 class="page-title">Discover</h1><div class="actions"><div class="seg" id="d-tab">${[['board','Rankings'],['rising','Rising'],['hype','Hype vs fundamentals']].map(([k,l])=>`<button data-k="${k}" aria-pressed="${tab===k}">${l}</button>`).join('')}</div></div></div>
+    <p class="page-desc">Find good brands before a broker brings them to you.</p>
+  </header>
+  <div id="d-body" style="display:grid;gap:var(--space-5)"></div>`;
+  const draw = () => {
+    $$('#d-tab button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===tab));
+    const body = $('#d-body'); resetCharts(); hideTip();
+    if(tab==='hype') return drawHype(body);
+    const list = BRANDS.filter(b=>!b.closed && (!b.generated||state.custom[b.id]) && (cat==='all'||b.cat===cat) && (tab!=='rising'||isRising(b))).sort((a,c)=>score(c)-score(a));
+    body.innerHTML = `
+      ${tab==='rising'?`<div class="callout">Young brands have less history, so they look riskier next to established names. This view ranks brands under 8 years old only against each other.</div>`:''}
+      <div class="chips">${['all',...Object.keys(CATS)].map(k=>`<button class="chip" data-c="${k}" aria-pressed="${cat===k}">${ic('check')}${k==='all'?'All categories':CATS[k].label}</button>`).join('')}</div>
+      <div class="table-wrap"><div class="table-scroll"><table class="table" style="min-width:860px">
+        <thead><tr><th data-numeric>#</th><th>Brand</th><th data-numeric>Score</th><th>12 months</th>${PILLARS.map(p=>`<th data-numeric>${p.short}</th>`).join('')}<th>Confidence</th><th>Flags</th></tr></thead>
+        <tbody>${list.map((b,i)=>{const c=confidence(b), fl=b.flags.filter(f=>f.sev!=='good'); return `<tr data-href data-brand="${b.id}"><td data-numeric class="muted">${i+1}</td><td><div class="row nowrap">${badge(b,32)}<span><span class="w5" style="display:block">${esc(b.name)}</span><span class="muted xs">${esc(b.sub)} · ${age(b)} yrs</span></span></div></td><td data-numeric>${scoreChip(b)}</td><td>${sparkline(trendOf(b),{w:72,h:22})}</td>${PILLARS.map(p=>`<td data-numeric class="${b.p[p.k]==null?'muted':'secondary'}">${b.p[p.k]==null?'n/a':f1(b.p[p.k])}</td>`).join('')}<td class="secondary">${c.k}</td><td>${fl.length?`<span class="badge ${fl.some(f=>f.sev!=='watch')?'badge-danger':'badge-warning'}" data-tip="${esc(fl.map(f=>f.t).join('. '))}">${ic('warn')} ${fl.length}</span>`:'<span class="muted">None</span>'}</td></tr>`}).join('') || `<tr><td colspan="11"><div class="empty"><h3>No brands here yet</h3><p>Nothing in this category matches the view. Try another category.</p></div></td></tr>`}</tbody>
+      </table></div></div>`;
+    $$('[data-c]', body).forEach(b=>b.onclick=()=>{ cat = b.dataset.c; draw() });
+  };
+  $$('#d-tab button').forEach(b=>b.onclick=()=>{ tab = b.dataset.k; draw() });
+  draw();
+};
+function quadrant(b){ const x=b.p.buzz, y=fundamentals(b); return y>=6.6 ? (x<6.5?'gem':'star') : (x>=6.5?'hype':'avoid') }
+const QUAD = {gem:{label:'Hidden gems',color:'var(--series-1)',note:'Strong business, little noise. The Moneyball picks.'},star:{label:'Proven stars',color:'var(--chart-ink)',note:'Strong and well known. Expect to pay for them.'},hype:{label:'Overhyped',color:'var(--series-3)',note:'More buzz than business. Check before signing.'},avoid:{label:'Weak',color:'var(--border-strong)',note:'Weak fundamentals and little buzz.'}};
+function hypeScatter(list){
+  const H = 440;
+  return legendHtml(Object.values(QUAD).map(q=>({label:q.label,color:q.color,kind:'dot'}))) + chartHost((el, W) => {
+    const gut = 36, axis = 40, pt = 10, pr = 10, pw = W-gut-pr, ph = H-axis-pt, lo = 2, hi = 10;
+    const X = v => gut + (v-lo)/(hi-lo)*pw, Y = v => pt + ph - (v-lo)/(hi-lo)*ph;
+    let g = '';
+    [2,4,6,8,10].forEach(t=>{ g += `<line x1="${gut}" x2="${gut+pw}" y1="${Y(t)}" y2="${Y(t)}" style="stroke:var(--${t===2?'border-strong':'border'})" shape-rendering="crispEdges"/><text x="${gut-10}" y="${Y(t)+4}" text-anchor="end">${t}</text><text x="${X(t)}" y="${pt+ph+18}" text-anchor="middle">${t}</text>` });
+    g += `<line x1="${X(6.5)}" x2="${X(6.5)}" y1="${pt}" y2="${pt+ph}" style="stroke:var(--border-strong)" stroke-dasharray="4 4"/><line x1="${gut}" x2="${gut+pw}" y1="${Y(6.6)}" y2="${Y(6.6)}" style="stroke:var(--border-strong)" stroke-dasharray="4 4"/>`;
+    const ql = (x,y,a,t) => `<text x="${x}" y="${y}" text-anchor="${a}" style="fill:var(--text-secondary);font-weight:500">${t}</text>`;
+    g += ql(gut+8, pt+16, 'start', 'Hidden gems') + ql(gut+pw-8, pt+16, 'end', 'Proven stars') + ql(gut+pw-8, pt+ph-10, 'end', 'Overhyped') + ql(gut+8, pt+ph-10, 'start', 'Weak');
+    g += `<text x="${gut+pw/2}" y="${H-4}" text-anchor="middle">Buzz, from press and social →</text><text transform="translate(10 ${pt+ph/2}) rotate(-90)" text-anchor="middle">Fundamentals, score without buzz →</text>`;
+    // label gems and overhyped brands, skipping labels that would collide
+    const placed = list.map(b=>({x:X(b.p.buzz)-6, y:Y(fundamentals(b))-6, w:12, h:12})), hits = a => placed.some(p=>a.x<p.x+p.w && a.x+a.w>p.x && a.y<p.y+p.h && a.y+a.h>p.y);
+    const pri = b => quadrant(b)==='gem' ? fundamentals(b)-b.p.buzz : quadrant(b)==='hype' ? b.p.buzz-fundamentals(b) : -99, labels = {};
+    [...list].filter(b=>['gem','hype'].includes(quadrant(b))).sort((a,c)=>pri(c)-pri(a)).forEach(b=>{
+      const x = X(b.p.buzz), y = Y(fundamentals(b)), w = b.name.length*6.6;
+      for(const box of [{x:x+10,y:y-8,w,h:14,a:'start'},{x:x-10-w,y:y-8,w,h:14,a:'end'},{x:x-w/2,y:y-24,w,h:14,a:'middle'}])
+        if(box.x>=gut && box.x+box.w<=gut+pw && !hits(box)){ placed.push(box); labels[b.id]=box; break }
+    });
+    list.forEach(b=>{ const q = quadrant(b), x = X(b.p.buzz), y = Y(fundamentals(b)), L = labels[b.id];
+      g += `<g data-brand="${b.id}" style="cursor:pointer" data-tip="${esc(tipHtml(b.name, [{c:QUAD[q].color,name:'Fundamentals',val:f1(fundamentals(b))},{name:'Buzz',val:f1(b.p.buzz)}], QUAD[q].label))}"><circle cx="${x}" cy="${y}" r="13" fill="transparent"/><circle cx="${x}" cy="${y}" r="5.5" style="fill:${QUAD[q].color};stroke:var(--surface)" stroke-width="2"/>${L?`<text x="${L.a==='start'?L.x:L.a==='end'?L.x+L.w:L.x+L.w/2}" y="${L.y+11}" text-anchor="${L.a}" style="fill:var(--foreground)">${esc(b.name)}</text>`:''}</g>` });
+    el.innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Brands plotted by buzz and fundamentals">${g}</svg>`;
+  }, H);
+}
+function drawHype(body){
+  const list = BRANDS.filter(b=>!b.closed && (!b.generated||state.custom[b.id]));
+  body.innerHTML = `<section class="card">${cardHead('Is the buzz backed by the business?','Each dot is a brand. Hover for details, click to open.')}${hypeScatter(list)}</section>
+    <div class="grid-2">${['gem','hype'].map(k=>`<section class="card flush">${cardHead(QUAD[k].label, QUAD[k].note)}<ul class="list">${list.filter(b=>quadrant(b)===k).sort((a,c)=>k==='gem'?fundamentals(c)-fundamentals(a):c.p.buzz-a.p.buzz).map(miniRow).join('')||'<li><span></span><span class="muted">None right now.</span></li>'}</ul></section>`).join('')}</div>`;
+}
+
+// ===== views4.js =====
+// ---------- Fill a slot ----------
+const rentRange = b => { const m = String(b.rent).match(/(\d+)\D+(\d+)/); return m ? [+m[1], +m[2]] : null };
+VIEWS.slot = (el, arg) => {
+  const repl = TENANTS.find(t=>t.id===arg), rb = repl && brandOf(repl.id);
+  const f = repl ? {unit:repl.unit, zone: rb.cat==='qsr'?'Food court':'Ground floor', size:repl.sqft, cat:rb.cat, rent:220, skipMine:true, avoidDup:false}
+                 : {unit:'F-214', zone:'Food court', size:1400, cat:'fnb', rent:200, skipMine:true, avoidDup:true};
+  const mix = {}; TENANTS.forEach(t=>{ const c = brandOf(t.id).cat; mix[c]=(mix[c]||0)+1 });
+  el.innerHTML = `
+  <header class="ph"><h1 class="page-title">Fill a slot</h1><p class="page-desc">Describe the empty unit. You get a shortlist ranked by score and by how well each brand fits the space.</p></header>
+  ${repl?`<div class="callout">Finding a replacement for <b>${esc(rb.name)}</b> at unit ${esc(repl.unit)}. Its lease ends ${esc(repl.leaseEnds)}.</div>`:''}
+  <div class="grid-2 lead">
+    <form class="card stack" id="slot-f" style="gap:var(--space-4)">
+      <div class="card-title">The vacant unit</div>
+      <div class="grid-2" style="gap:var(--space-3)">
+        <div class="field"><label for="s-unit">Unit</label><input class="input" id="s-unit" value="${esc(f.unit)}"></div>
+        <div class="field"><label for="s-zone">Zone</label><select class="input" id="s-zone">${['Ground floor','First floor','Food court','Top floor'].map(z=>`<option${z===f.zone?' selected':''}>${z}</option>`).join('')}</select></div>
+        <div class="field"><label for="s-size">Size in sq ft</label><input class="input num" id="s-size" type="number" min="100" step="50" value="${f.size}"></div>
+        <div class="field"><label for="s-rent">Asking rent per sq ft</label><input class="input num" id="s-rent" type="number" min="50" step="10" value="${f.rent}"></div>
+      </div>
+      <div class="field"><label for="s-cat">Category</label><select class="input" id="s-cat"><option value="fnb"${f.cat==='fnb'?' selected':''}>Any food and beverage</option><option value="any">Any category</option>${Object.entries(CATS).filter(([k])=>k!=='convenience').map(([k,c])=>`<option value="${k}"${f.cat===k?' selected':''}>${c.label}</option>`).join('')}</select></div>
+      <div>
+        <label class="switch-row" for="s-mine"><span>Leave out brands already in ${esc(MY_MALL.name)}</span><input type="checkbox" class="switch" id="s-mine"${f.skipMine?' checked':''}></label>
+        <label class="switch-row" for="s-dup"><span>Prefer categories we have fewer of</span><input type="checkbox" class="switch" id="s-dup"${f.avoidDup?' checked':''}></label>
+      </div>
+      <button class="btn btn-primary" type="submit">Find brands</button>
+      <p class="muted xs">Current mix: ${Object.entries(mix).map(([k,v])=>`${v} ${CATS[k].label.toLowerCase()}`).join(', ')}</p>
+    </form>
+    <section class="card flush" id="slot-out"></section>
+  </div>`;
+  const run = () => {
+    const size = +$('#s-size').value||0, rent = +$('#s-rent').value||0, cat = $('#s-cat').value, skip = $('#s-mine').checked, dup = $('#s-dup').checked;
+    const mine = new Set(TENANTS.map(t=>t.id));
+    const pool = BRANDS.filter(b=>!b.closed && !b.generated && b.cat!=='convenience' && (cat==='any' || (cat==='fnb'?FNB.has(b.cat):b.cat===cat)) && !(skip&&mine.has(b.id)) && b.id!==arg);
+    const res = pool.map(b=>{
+      let fit = score(b)*10; const why = [], warn = [];
+      const [u0,u1] = b.unit;
+      if(size>=u0*0.8 && size<=u1*1.2) why.push(`Fits ${size.toLocaleString('en-IN')} sq ft`); else { fit-=15; warn.push(`Usually takes ${u0.toLocaleString('en-IN')}–${u1.toLocaleString('en-IN')} sq ft`) }
+      const rr = rentRange(b); if(rr){ if(rr[1] >= rent) why.push(`Pays ${b.rent} elsewhere`); else { fit-=12; warn.push(`Usually pays up to ₹${rr[1]}, below your ask`) } }
+      const have = mix[b.cat]||0; if(dup && have>=3){ fit-=8; warn.push(`You already have ${have} ${CATS[b.cat].label.toLowerCase()}`) } else if(dup && have===0){ fit+=4; why.push(`No ${CATS[b.cat].label.toLowerCase()} in your mall yet`) }
+      if(isYoung(b) && b.p.mom>=8) why.push('Rising brand');
+      b.flags.filter(x=>x.sev!=='good').forEach(x=>warn.push(x.t));
+      return {b, fit:Math.round(clamp(fit,0,100)), why, warn};
+    }).sort((a,c)=>c.fit-a.fit).slice(0,6);
+    $('#slot-out').innerHTML = cardHead(`${res.length} brands for unit ${esc($('#s-unit').value)}`,'Fit is the score, adjusted for size, rent and your current mix')
+     + `<ul class="list">${res.map((r,i)=>`<li class="top">${badge(r.b,40)}<div class="lead-text" style="display:grid;gap:8px">
+          <div><span class="w5 base"><span class="muted num" style="font-weight:400">${i+1}.</span> ${esc(r.b.name)}</span><span class="muted xs" style="display:block">${esc(r.b.sub)} · ${esc(CATS[r.b.cat].label)} · score ${f1(score(r.b))}</span></div>
+          <div class="reasons">${r.why.map(w=>`<span class="badge badge-success">${ic('check')}${esc(w)}</span>`).join('')}${r.warn.map(w=>`<span class="badge badge-warning">${ic('warn')}${esc(w)}</span>`).join('')}</div>
+          <div class="row"><a class="btn btn-secondary btn-sm" href="#brand/${r.b.id}">Open</a><button class="btn btn-ghost btn-sm" type="button" data-memo="${r.b.id}">${ic('file')} Memo</button><button class="btn btn-ghost btn-sm" type="button" data-cmp="${r.b.id}">Compare with #${i===0?2:1}</button></div>
+        </div><div class="fit"><b>Fit ${r.fit}</b><div class="meter"><i style="width:${r.fit}%"></i></div></div></li>`).join('') || '<li style="display:block"><div class="empty"><h3>No brands match</h3><p>Try a different size, rent or category.</p></div></li>'}</ul>`;
+    $$('[data-memo]', el).forEach(b=>b.onclick=()=>openMemo(brandOf(b.dataset.memo)));
+    $$('[data-cmp]', el).forEach(b=>b.onclick=()=>{ const other = res[b.dataset.cmp===res[0].b.id?1:0]?.b; go('compare/'+[b.dataset.cmp, other?.id].filter(Boolean).join(',')) });
+  };
+  $('#slot-f').onsubmit = e => { e.preventDefault(); run() };
+  $$('#slot-f input, #slot-f select').forEach(i=>i.onchange=run);
+  run();
+};
+
+// ---------- Watchlist ----------
+const monthsUntil = ym => { const [y,m] = ym.split('-').map(Number); return (y-2026)*12 + (m-10) };
+function tenantAction(t){
+  const b = brandOf(t.id), s = score(b), mo = monthsUntil(t.leaseEnds);
+  if(s<5.5 && mo<=12) return {k:'badge-danger',t:'Plan a replacement',repl:true};
+  if(s<5.5) return {k:'badge-danger',t:'Watch closely',repl:true};
+  if(mo<=12 && b.d3<0) return {k:'badge-warning',t:'Renegotiate'};
+  if(s>=7.5 && mo<=24) return {k:'badge-success',t:'Renew early'};
+  return {k:'',t:'No action'};
+}
+VIEWS.watch = el => {
+  let filter = 'all';
+  const tenants = TENANTS.filter(t=>state.watch.has(t.id));
+  const extra = [...state.watch].filter(id=>!TENANTS.find(t=>t.id===id) && brandOf(id));
+  const scores = tenants.map(t=>score(brandOf(t.id))), avg = scores.reduce((a,c)=>a+c,0)/(scores.length||1);
+  const atRisk = tenants.filter(t=>score(brandOf(t.id))<5.5).length, expiring = tenants.filter(t=>monthsUntil(t.leaseEnds)<=12).length;
+  const kpi = (label, value, note, chip='') => `<div class="card tall"><div class="card-head" style="margin-bottom:var(--space-6)"><span class="metric-label">${label}</span>${chip}</div><div class="metric"><span class="metric-value" style="font-size:var(--text-3xl)">${value}</span><span class="metric-note">${note}</span></div></div>`;
+  el.innerHTML = `
+  <header class="ph"><div class="title-row"><h1 class="page-title">Watchlist</h1><div class="actions"><span class="badge">${ic('bell')} Weekly digest, Mondays 9 am</span></div></div>
+    <p class="page-desc">${esc(MY_MALL.name)}, ${esc(MY_MALL.city)} · ${esc(MY_MALL.gla)} · ${MY_MALL.occupancy}% occupied</p></header>
+  <div class="grid-4">
+    ${kpi('Average tenant score', f1(avg), `${tenants.length} tenants watched`)}
+    ${kpi('Tenants at risk', atRisk, 'Score below 5.5', atRisk?'<span class="delta" data-trend="down">Act</span>':'')}
+    ${kpi('Leases ending soon', expiring, 'Within 12 months')}
+    ${kpi('Alerts this month', ALERTS.length, `${ALERTS.filter(a=>a.sev==='risk').length} serious`)}
+  </div>
+  <div class="stack" style="gap:var(--space-6)">
+    <section class="stack">${cardHead('Your tenants','Sorted by lease end')}
+      <div class="table-wrap"><div class="table-scroll"><table class="table" style="min-width:620px"><thead><tr><th>Brand</th><th>Unit</th><th>Lease ends</th><th data-numeric>Score</th><th>3 months</th><th>Suggested</th></tr></thead><tbody>
+      ${[...tenants].sort((a,c)=>a.leaseEnds.localeCompare(c.leaseEnds)).map(t=>{const b=brandOf(t.id),a=tenantAction(t),mo=monthsUntil(t.leaseEnds);return `<tr data-href data-brand="${b.id}"><td><div class="row nowrap">${badge(b,28)}<span class="w5">${esc(b.name)}</span></div></td><td style="white-space:nowrap"><span class="num">${t.unit}</span><span class="muted xs" style="display:block">${t.sqft.toLocaleString('en-IN')} sq ft</span></td><td style="white-space:nowrap"><span>${new Date(t.leaseEnds+'-01').toLocaleString('en-GB',{month:'short',year:'numeric'})}</span><span class="xs" style="display:block;color:var(--${mo<=6?'danger':'text-muted'})">${mo<=0?'Due now':mo+' months'}</span></td><td data-numeric>${scoreChip(b)}</td><td>${deltaHtml(b.d3,'')}</td><td><span class="badge ${a.k}">${a.t}</span>${a.repl?`<a class="link xs" style="display:block;margin-top:4px" href="#slot/${t.id}">Find a replacement</a>`:''}</td></tr>`}).join('')}
+      </tbody></table></div></div>
+      ${extra.length?`<div class="row"><span class="muted">Also watching</span>${extra.map(id=>{const b=brandOf(id);return `<button class="chip" data-brand="${id}">${esc(b.name)} <span class="muted num">${f1(score(b))}</span></button>`}).join('')}</div>`:''}
+    </section>
+    <section class="card flush">${cardHead('Alerts','', `<div class="seg" id="w-f">${[['all','All'],['risk','Serious'],['warn','Watch'],['good','Good']].map(([k,l])=>`<button data-f="${k}" aria-pressed="${k===filter}">${l}</button>`).join('')}</div>`)}<ul class="list" id="w-alerts"></ul></section>
+  </div>`;
+  const drawAlerts = () => { $('#w-alerts').innerHTML = ALERTS.filter(a=>filter==='all'||a.sev===filter).map(alertHtml).join('') || '<li style="display:block"><div class="empty"><h3>All quiet</h3><p>No alerts of this kind this week.</p></div></li>'; $$('#w-f button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.f===filter)) };
+  $$('#w-f button').forEach(b=>b.onclick=()=>{ filter = b.dataset.f; drawAlerts() }); drawAlerts();
+};
+
+// ---------- Scoring model (custom weights) ----------
+VIEWS.model = el => {
+  const sample = BRANDS.filter(b=>!b.generated && !b.closed);
+  const base = [...sample].sort((a,c)=>scoreOf(c,PRESETS.balanced.w,true,true).score - scoreOf(a,PRESETS.balanced.w,true,true).score).map(b=>b.id);
+  el.innerHTML = `
+  <header class="ph"><h1 class="page-title">Scoring model</h1><p class="page-desc">Every mall is different. Set how much each pillar matters for ${esc(MY_MALL.name)}. Scores across the app update straight away, and your colleagues see the same model.</p></header>
+  <div class="grid-2">
+    <section class="card stack" style="gap:var(--space-2)">
+      ${cardHead('Weights','', `<div class="seg" id="m-pre">${Object.entries(PRESETS).map(([k,p])=>`<button data-k="${k}" aria-pressed="${state.preset===k}">${p.label}</button>`).join('')}</div>`)}
+      <p class="secondary" id="m-note" style="margin-top:calc(var(--space-3) * -1)"></p>
+      <div id="m-sliders">${PILLARS.map(p=>`<div class="slider-row"><div class="head"><label for="w-${p.k}"><b>${p.label}</b></label><span id="wv-${p.k}"></span></div><input type="range" class="slider" id="w-${p.k}" min="0" max="50" step="1" value="${state.weights[p.k]}" data-k="${p.k}"></div>`).join('')}</div>
+      <div style="margin-top:var(--space-3)">
+        <label class="switch-row" for="m-age"><span><span class="w5" style="display:block">Adjust for brand age</span><span class="secondary xs">Brands under 5 years: financials count half as much, momentum ×1.3, customers ×1.2</span></span><input type="checkbox" class="switch" id="m-age"${state.ageAdjust?' checked':''}></label>
+        <label class="switch-row" for="m-caps"><span><span class="w5" style="display:block">Red-flag caps</span><span class="secondary xs">A serious flag caps the score at 5.5, a critical one at 3.0</span></span><input type="checkbox" class="switch" id="m-caps"${state.caps?' checked':''}></label>
+      </div>
+      <div class="callout xs">Weights start as a guess. We tune them by checking which settings would have flagged brands that later failed, like RoundClock. <a class="link" href="#method">See the test</a></div>
+    </section>
+    <section class="stack">${cardHead('Live ranking','Movement against the balanced model')}
+      <div class="table-wrap"><table class="table"><thead><tr><th data-numeric>#</th><th>Brand</th><th data-numeric>Score</th><th data-numeric>Move</th></tr></thead><tbody id="m-rank"></tbody></table></div></section>
+  </div>`;
+  const draw = () => {
+    const tot = PILLARS.reduce((a,p)=>a+state.weights[p.k],0)||1;
+    PILLARS.forEach(p=>{ $('#wv-'+p.k).textContent = Math.round(state.weights[p.k]/tot*100)+'%'; const s = $('#w-'+p.k); s.style.setProperty('--p', (s.value/s.max*100)+'%') });
+    const ranked = [...sample].sort((a,c)=>score(c)-score(a)).slice(0,12);
+    $('#m-rank').innerHTML = ranked.map((b,i)=>{ const mv = base.indexOf(b.id)-i; return `<tr data-href data-brand="${b.id}"><td data-numeric class="muted">${i+1}</td><td><div class="row nowrap">${badge(b,24)}<span class="w5">${esc(b.name)}</span><span class="muted xs">${esc(CATS[b.cat].label)}</span></div></td><td data-numeric>${scoreChip(b)}</td><td data-numeric><span class="move ${mv>0?'up':mv<0?'down':'flat'}">${mv>0?'▲ '+mv:mv<0?'▼ '+(-mv):'–'}</span></td></tr>` }).join('');
+    $$('#m-pre button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===state.preset));
+    $('#m-note').textContent = PRESETS[state.preset]?.note || 'Custom weights for your mall.';
+    saveState();
+  };
+  $$('#m-sliders input').forEach(s=>s.oninput=()=>{ state.weights[s.dataset.k]=+s.value; state.preset = Object.keys(PRESETS).find(k=>PILLARS.every(p=>PRESETS[k].w[p.k]===state.weights[p.k])) || 'custom'; draw() });
+  $$('#m-pre button').forEach(b=>b.onclick=()=>{ state.preset=b.dataset.k; state.weights={...PRESETS[b.dataset.k].w}; PILLARS.forEach(p=>$('#w-'+p.k).value=state.weights[p.k]); draw() });
+  $('#m-age').onchange = e => { state.ageAdjust = e.target.checked; draw() };
+  $('#m-caps').onchange = e => { state.caps = e.target.checked; draw() };
+  draw();
+};
+
+// ---------- How scores work ----------
+VIEWS.method = el => {
+  const M = Array.from({length:24},(_,i)=>new Date(2022,i,1).toLocaleString('en-GB',{month:'short'})+' '+String(22+Math.floor(i/12)));
+  const stores = [128,130,132,134,135,135,134,131,127,122,118,112,104,96,88,79,70,61,50,41,30,19,9,0];
+  const sc = [6.8,6.7,6.7,6.6,6.4,6.2,5.9,5.6,5.3,4.9,4.6,4.3,4.0,3.8,3.6,3.4,3.2,3.1,3.0,3.0,2.9,2.9,2.8,2.8];
+  el.innerHTML = `
+  <header class="ph"><h1 class="page-title">How scores work</h1><p class="page-desc">The AI collects facts. A fixed formula does the scoring. That keeps every score repeatable, explainable and defensible.</p></header>
+  <section class="grid-4">
+    ${[['Confirm the brand','You pick the right “Kestrel” once. The choice is saved for your whole company.'],['Collect facts','An agent reads filings, store maps, reviews and the Indian press. A fact without a link and a date is thrown out.'],['Score with a formula','Five pillars, compared with category peers and combined with your mall\'s weights. No AI judgement here.'],['Show the evidence','The score, its pillars, red flags and every source, side by side.']].map(([t,d],i)=>`<div class="card step-card rise" style="--i:${i}"><span class="n">Step ${i+1}</span><h3>${t}</h3><p class="secondary">${d}</p></div>`).join('')}
+  </section>
+  <section class="stack">${cardHead('The five pillars','Default weights for an established brand')}
+    <div class="table-wrap"><div class="table-scroll"><table class="table"><thead><tr><th>Pillar</th><th>What goes in</th><th data-numeric>Weight</th></tr></thead><tbody>${PILLARS.map(p=>`<tr><td class="w5" style="white-space:nowrap">${p.label}</td><td class="secondary" style="padding-block:12px">${esc(p.desc)}</td><td data-numeric class="w5">${PRESETS.balanced.w[p.k]}%</td></tr>`).join('')}</tbody></table></div></div></section>
+  <section class="grid-3">
+    ${[['Compared within peers','A 4.2 rating means different things for a food-court counter and a fine-dining restaurant. Each pillar is scored against the brand\'s own category.'],
+       ['Adjusted for age','For brands under 5 years old, financials count half as much. Momentum and customer love count more.'],
+       ['India first','Indian press and Indian store performance count four times as much as global news. Nike hiring in Bengaluru matters more than its US share price.'],
+       ['Red-flag caps','Insolvency cases, mass closures and unpaid-dues disputes cap the score however good the rest looks.'],
+       ['Missing data is skipped','No filings? That pillar is left out and confidence drops. It never counts as zero, so small brands aren\'t punished for being small.'],
+       ['Smoothed over time','Scores are averaged monthly so one news story can\'t swing them. Sudden review spikes freeze the customer score until checked.']].map(([t,d])=>`<div class="card step-card"><h3>${t}</h3><p class="secondary">${d}</p></div>`).join('')}
+  </section>
+  <section class="card stack" style="gap:var(--space-5)">
+    ${cardHead('Would it have warned us?','A back-test on RoundClock, a convenience chain that shut down')}
+    <div class="grid-2">
+      <div>${cardHead('Brand Index score')}${lineChart([{label:'Score',color:'var(--chart-ink)',values:sc}],{labels:M,h:220,ymin:0,ymax:8,markers:[{i:9,label:'Falls below 5'}]})}</div>
+      <div>${cardHead('Stores trading')}${lineChart([{label:'Stores',color:'var(--chart-ink)',values:stores}],{labels:M,h:220,ymin:0,ymax:150,fmt:v=>String(Math.round(v)),markers:[{i:9,label:'Score warning'}]})}</div>
+    </div>
+    <div class="callout">The score dropped into “Watch” in October 2022, while the chain still had 122 stores. That was <b>14 months before the last store closed</b>. The warning came from store closures and falling reviews, not the accounts, which lagged by a year.</div>
+    <p class="muted xs">Illustrative numbers. In the real build, every known failure runs through the model and the weights are tuned until each one is flagged early.</p>
+  </section>
+  <section class="grid-2">
+    <div class="card">${cardHead("What it doesn't know")}<ul class="list">${["Store-level sales. No brand publishes them.","Brands with almost no online footprint. They get a low-confidence score, or none.","Private deal terms. Lease-registration data helps in negotiation, not in judging the brand."].map(t=>`<li style="grid-template-columns:auto minmax(0,1fr)"><span class="sev">${ic('info')}</span><span class="secondary">${t}</span></li>`).join('')}</ul></div>
+    <div class="card">${cardHead('Fair to the brands')}<ul class="list">${["Scores use sourced facts only, written in neutral language.","Behind a login, for leasing teams only.","Brands can ask for a correction if they bring a source."].map(t=>`<li style="grid-template-columns:auto minmax(0,1fr)"><span class="sev">${ic('shield')}</span><span class="secondary">${t}</span></li>`).join('')}</ul></div>
+  </section>`;
+};
+
+// ---------- Start-up: tooltips, theme, delegated navigation, charts, segmented glide ----------
+function glideSegs(){
+  $$('.seg').forEach(seg=>{
+    const b = seg.querySelector('button[aria-pressed="true"]');
+    if(!b){ seg.style.setProperty('--w','0px'); return }
+    seg.style.setProperty('--x', b.offsetLeft+'px'); seg.style.setProperty('--w', b.offsetWidth+'px');
+    if(!seg.dataset.ready && b.offsetWidth) requestAnimationFrame(()=>seg.dataset.ready = '1');
+  });
+}
+(function(){
+  let tipFromAttr = false;
+  document.addEventListener('mouseover', e=>{ const t = e.target.closest?.('[data-tip]'); if(t){ showTip(t.getAttribute('data-tip'), e.clientX, e.clientY); tipFromAttr = true } else if(tipFromAttr){ hideTip(); tipFromAttr = false } });
+  document.addEventListener('mousemove', e=>{ if(tipFromAttr && !$('#tip').hidden) placeTip(e.clientX, e.clientY) });
+  addEventListener('scroll', ()=>{ hideTip(); $('#topbar').toggleAttribute('data-scrolled', scrollY>4) }, {passive:true});
+  const th = store.get('theme', null); if(th) document.documentElement.dataset.theme = th;
+  $('#theme-btn').onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'); const nx = cur==='dark'?'light':'dark'; document.documentElement.dataset.theme = nx; store.set('theme', nx) };
+  renderShell();
+  bindSearch($('#top-q'), $('#top-sug'));
+  document.addEventListener('keydown', e=>{ if(e.key==='/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){ e.preventDefault(); $('#top-q').focus() } });
+  // one delegated handler for links, brand rows and route rows
+  document.addEventListener('click', e=>{
+    if(e.target.closest('.overlay .dialog') && !e.target.closest('a[href^="#"]')) return;
+    const a = e.target.closest('a[href^="#"]');
+    if(a){ if(e.metaKey||e.ctrlKey) return; e.preventDefault(); const r = decodeURIComponent(a.getAttribute('href').slice(1)); if(r){ $('.overlay')?.remove(); document.body.classList.remove('memo-open'); go(r) } return }
+    if(e.target.closest('button:not([data-brand]):not([data-go]), input, select, textarea, label')) return;
+    const row = e.target.closest('[data-brand], [data-go]'); if(!row) return;
+    if(row.dataset.brand) openBrand(brandOf(row.dataset.brand)); else go(row.dataset.go);
+  });
+  document.addEventListener('keydown', e=>{ if(e.key!=='Enter') return; const row = e.target.closest?.('[data-brand][tabindex], [data-go][tabindex]'); if(!row) return; row.dataset.brand ? openBrand(brandOf(row.dataset.brand)) : go(row.dataset.go) });
+  addEventListener('popstate', ()=>{ const h = decodeURIComponent(location.hash.slice(1)) || 'home'; if(h!==curRoute){ curRoute = h; navStack.pop(); route() } });
+  // MutationObserver callbacks are already batched; no animation-frame wait, so charts also draw in background tabs
+  new MutationObserver(()=>{ hydrateCharts(); glideSegs() })
+    .observe($('#view'), {childList:true, subtree:true, attributes:true, attributeFilter:['aria-pressed']});
+  addEventListener('resize', glideSegs);
+  document.fonts?.ready.then(glideSegs);
+  route();
+})();
+
+</script>
+</body>
+</html>
